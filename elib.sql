@@ -1,3 +1,5 @@
+/*Script para o banco de dados, feito no pgadmin4*/
+
 CREATE TABLE IF NOT EXISTS public.livros (
     id serial PRIMARY KEY,
     nome character varying(80) NOT NULL,
