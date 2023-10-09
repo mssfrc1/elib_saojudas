@@ -1,6 +1,5 @@
 package views;
 
-import controllers.UserController;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 /**
@@ -100,10 +99,8 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (UserController.login(getUsuario(), getPassword())) {
+        if (getUsuario().equals("admin") && getPassword().equals("admin")) {
             JOptionPane.showMessageDialog(null, "Usuario Encontrado");
-            TelaBiblioteca telaBiblioteca = new TelaBiblioteca();
-            telaBiblioteca.setVisible(true);
             return true;
             //redirecionar para outro Frame
         } else {
