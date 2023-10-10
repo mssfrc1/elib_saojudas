@@ -11,7 +11,7 @@ public class elib {
         // Chamando o metodo do LivroController
         //System.out.println(LivroController.getAllLivros());
         //System.out.println(LivroController.getLivroByNome("Duna"));     
-        System.out.println(LivroController.getLivroByGenero("Romance"));   
+        System.out.println(LivroController.getLivroByGenero("Romance").get(1));   
         //getLivroByNome("Duna");         
         //getAllUsers();
         //login("rbossini","teste");

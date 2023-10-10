@@ -50,7 +50,7 @@ public class LivroController {
         return livros;
     }
 
-    public static Livro[] getLivroByGenero(String genero) {
+    public static List<Livro> getLivroByGenero(String genero) {
         List<Livro> livrosList = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -82,7 +82,7 @@ public class LivroController {
         }
     
         // Convert the list to an array and return it
-        return Arrays.toString(livrosList);
+        return livrosList;
     }
        
 
