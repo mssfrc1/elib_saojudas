@@ -12,6 +12,7 @@ public class TelaLogin extends javax.swing.JFrame {
     /** Creates new form TelaLogin */
     public TelaLogin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public String getUsuario() {
@@ -102,8 +103,9 @@ public class TelaLogin extends javax.swing.JFrame {
     private boolean jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (UserController.login(getUsuario(), getPassword())) {
             JOptionPane.showMessageDialog(null, "Usuario Encontrado");
-            TelaBiblioteca telaBiblioteca = new TelaBiblioteca();
+            var telaBiblioteca = new TelaBiblioteca();
             telaBiblioteca.setVisible(true);
+            dispose();
             return true;
             //redirecionar para outro Frame
         } else {
