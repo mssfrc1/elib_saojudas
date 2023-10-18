@@ -6,6 +6,8 @@ public class User {
     private String sobrenome;
     private String usuario;
     private String senha;
+    private int idade;
+    private String sexo;
     private boolean admin;
 
     public User() {}
@@ -65,7 +67,28 @@ public class User {
         this.admin = admin;
     }
 
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public Object[] toArray() {
+        return new Object[]{usuario, senha, admin};
+    }
+
     public String toString() {
         return "|ID: " + id + ", " + "Nome: " + nome + ", " + "Sobrenome: " + sobrenome + ", " + "Usuario: " + usuario + ", " + "Senha " + senha + ", " + "Admin: " + admin;
     }
+
 }
