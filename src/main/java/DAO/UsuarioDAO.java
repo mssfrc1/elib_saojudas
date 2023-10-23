@@ -79,18 +79,6 @@ public class UsuarioDAO {
         }
     }
 
-    /*
-     * public static boolean verificacaoUsuarioAdmin(String usuario) {
-     * List<User> listaUserAdmin = getAdmin(usuario);
-     * Boolean verificacaoLista = listaUserAdmin.stream()
-     * .map(n -> n.getAdmin())
-     * .toList()
-     * .contains(true);
-     * 
-     * return verificacaoLista;
-     * }
-     */
-
     public static User Login(String usuario, String senha) {
         User usuarioUser = null;
         PreparedStatement preparedStatement = null;
@@ -123,7 +111,6 @@ public class UsuarioDAO {
         } finally {
             BancoDados.fecharConexao(connection);
         }
-        System.out.println();
         return usuarioUser;
     }
 }

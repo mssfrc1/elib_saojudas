@@ -7,8 +7,12 @@ import models.User;
 
 public class UserController {
 
-    public static Object login(String usuario, String senha) {
-        return UsuarioDAO.Login(usuario, senha).toArray()[2];
+    public static boolean login(String usuario, String senha) {
+        if (UsuarioDAO.Login(usuario, senha) != null) {
+            return true;
+        }
+        System.out.println("Falha na autenticação");
+        return false;
     }
 
 }

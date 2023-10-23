@@ -231,7 +231,7 @@ public class TelaEditClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_alterarActionPerformed
 
     private void btn_pesquisarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarIDActionPerformed
-        LivroController.getLivroByID(txt_buscarID.getText());
+        //LivroController.getLivroByID(txt_buscarID.getText());
     }//GEN-LAST:event_btn_pesquisarIDActionPerformed
 
     /**

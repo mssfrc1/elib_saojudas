@@ -10,9 +10,10 @@ public class User {
     private String sexo;
     private boolean admin;
 
-    public User() {}
+    public User() {
+    }
 
-    public User(String nome,String sobrenome,String usuario, String senha) {
+    public User(String nome, String sobrenome, String usuario, String senha) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.usuario = usuario;
@@ -34,7 +35,7 @@ public class User {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public String getSobrenome() {
         return sobrenome;
     }
@@ -84,11 +85,12 @@ public class User {
     }
 
     public Object[] toArray() {
-        return new Object[]{usuario, senha, admin};
+        return new Object[] { id, nome, sobrenome, usuario, senha, idade, sexo, admin };
     }
 
     public String toString() {
-        return "|ID: " + id + ", " + "Nome: " + nome + ", " + "Sobrenome: " + sobrenome + ", " + "Usuario: " + usuario + ", " + "Senha " + senha + ", " + "Admin: " + admin;
+        return "|ID: " + id + ", " + "Nome: " + nome + ", " + "Sobrenome: " + sobrenome + ", " + "Usuario: " + usuario
+                + ", " + "Senha " + senha + ", " + "Admin: " + admin;
     }
 
 }
