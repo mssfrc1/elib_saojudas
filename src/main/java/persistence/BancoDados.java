@@ -9,9 +9,9 @@ public class BancoDados {
     public static Connection ConexaoDb() {
         Connection connection = null;
         try {
-            String url = "jdbc:postgresql://postgres-sql-elibrary-faculdade.a.aivencloud.com:15441/defaultdb?ssl=require&user=avnadmin&password=AVNS_V27U2dHnvZxXUrpgqEs";
-            String username = "avnadmin";
-            String senha = "AVNS_V27U2dHnvZxXUrpgqEs";
+            String url = "jdbc:postgresql://localhost:5432/postgres";
+            String username = "postgres";
+            String senha = "admin123";
 
             connection = DriverManager.getConnection(url, username, senha);
 

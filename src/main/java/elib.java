@@ -3,6 +3,7 @@ import java.util.Arrays;
 import controllers.*;
 import models.User;
 import views.TelaLogin;
+import DAO.*;
 
 public class elib {
     public static void main(String[] args) {
@@ -17,8 +18,11 @@ public class elib {
         //System.out.println(UsuarioDAO.Login("admin","admin").get(0));
         //System.out.println(teste);
         // getAdmin("admin");         
-        // criarUsuario(new User("Rodrig","Bossii","rbossini","teste")); 
-        TelaLogin.main(null);
+        // criarUsuario(new User("Rodrig","Bossii","rbossini","teste"));
+        System.out.println(LivroController.getAllLivros().get(5).getNome());
+        //System.out.println(LivroDAO.getGeneroByLivroId(1));
+        //TelaLogin.main(null);
+
         
     }
 }

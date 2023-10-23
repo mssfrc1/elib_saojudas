@@ -4,9 +4,19 @@ public class Livro {
     private int id;
     private String nome;
     private String sinopse;
-    private String genero;
     private String capa;
     private String arquivo_livro;
+    private String id_genero;
+    private String genero;
+
+    public Livro(int id, String nome, String sinopse, String capa, String arquivo_livro, String id_genero) {
+    this.id = id;
+    this.nome = nome;
+    this.sinopse = sinopse;
+    this.capa = capa;
+    this.arquivo_livro = arquivo_livro;
+    this.id_genero = id_genero;
+    }
 
     public int getId() {
         return id;
@@ -32,14 +42,6 @@ public class Livro {
         this.sinopse = sinopse;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
     public String getCapa() {
         return capa;
     }
@@ -55,8 +57,25 @@ public class Livro {
     public void setArquivo_livro(String arquivo_livro) {
         this.arquivo_livro = arquivo_livro;
     }
+     public void setGenero(String genero) {
+         this.genero = genero;
+     }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public String getId_genero() {
+        return id_genero;
+    }
+
+    public void setId_genero(String id_genero) {
+        this.id_genero = id_genero;
+    }
 
     public String toString() {
-        return "|ID: " + id + ", " + "Nome: " + nome + ", " + "Sinopse: " + sinopse + ", " + "Genero: " + genero + ", " + "Capa " + capa + ", " + "Admin: " + arquivo_livro;
+        return "Livro [id=" + id + ", nome=" + nome + ", sinopse=" + sinopse + ", capa=" + capa + ", arquivo_livro=" + arquivo_livro + ", genero=" + genero + ", id_genero=" + id_genero + "]";
     }
+
+
 }
