@@ -10,14 +10,15 @@ public class User {
     private String sexo;
     private boolean admin;
 
-    public User() {
-    }
-
-    public User(String nome, String sobrenome, String usuario, String senha) {
+    public User(int id, String nome, String sobrenome, String usuario, String senha, int idade, String sexo, boolean admin) {
+        this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.usuario = usuario;
         this.senha = senha;
+        this.idade = idade;
+        this.sexo = sexo;
+        this.admin = admin;
     }
 
     public int getId() {

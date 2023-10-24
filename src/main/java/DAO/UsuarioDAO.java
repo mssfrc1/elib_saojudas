@@ -28,13 +28,16 @@ public class UsuarioDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                User usuario = new User();
-                usuario.setId(resultSet.getInt("id"));
-                usuario.setNome(resultSet.getString("nome"));
-                usuario.setSobrenome(resultSet.getString("sobrenome"));
-                usuario.setUsuario(resultSet.getString("usuario"));
-                usuario.setSenha(resultSet.getString("senha"));
-                usuario.setAdmin(resultSet.getBoolean("admin"));
+                User usuario = new User(
+                    resultSet.getInt("id"),
+                    resultSet.getString("nome"),
+                    resultSet.getString("sobrenome"),
+                    resultSet.getString("usuario"),
+                    resultSet.getString("senha"),
+                    resultSet.getInt("idade"),
+                    resultSet.getString("sexo"),
+                    resultSet.getBoolean("admin")
+                );
 
                 usuarios.add(usuario);
             }
@@ -93,17 +96,18 @@ public class UsuarioDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                User databaseUser = new User();
-                databaseUser.setUsuario(resultSet.getString("usuario"));
-                databaseUser.setSenha(resultSet.getString("senha"));
-                databaseUser.setIdade(resultSet.getInt("idade"));
-                databaseUser.setNome(resultSet.getString("nome"));
-                databaseUser.setSobrenome(resultSet.getString("sobrenome"));
-                databaseUser.setSexo(resultSet.getString("sexo"));
-                databaseUser.setAdmin(resultSet.getBoolean("admin"));
+               User usuarioLogado = new User(
+                    resultSet.getInt("id"),
+                    resultSet.getString("nome"),
+                    resultSet.getString("sobrenome"),
+                    resultSet.getString("usuario"),
+                    resultSet.getString("senha"),
+                    resultSet.getInt("idade"),
+                    resultSet.getString("sexo"),
+                    resultSet.getBoolean("admin")
+                );
 
-                System.out.println(databaseUser);
-                usuarioUser = databaseUser;
+                usuarioUser = usuarioLogado;
             }
 
         } catch (SQLException e) {
