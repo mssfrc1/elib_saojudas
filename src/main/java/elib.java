@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 import controllers.*;
 import models.User;
+import views.TelaBiblioteca;
 import views.TelaLogin;
 import DAO.*;
 
@@ -19,10 +20,11 @@ public class elib {
         //System.out.println(teste);
         // getAdmin("admin");         
         // criarUsuario(new User("Rodrig","Bossii","rbossini","teste"));
-        System.out.println(LivroController.getAllLivros().get(5).getNome());
+        //System.out.println(LivroController.getAllLivros().get(5).getNome());
+        //System.out.println();
         //System.out.println(LivroDAO.getGeneroByLivroId(1));
         //TelaLogin.main(null);
-
-        
+        TelaBiblioteca.RenderizaLivros();
+        //System.out.println(UsuarioDAO.Login("admin", "admin"));
     }
 }

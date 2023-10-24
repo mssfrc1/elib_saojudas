@@ -11,7 +11,7 @@ public class BancoDados {
         try {
             String url = "jdbc:postgresql://localhost:5432/postgres";
             String username = "postgres";
-            String senha = "admin123";
+            String senha = "123456";
 
             connection = DriverManager.getConnection(url, username, senha);
 

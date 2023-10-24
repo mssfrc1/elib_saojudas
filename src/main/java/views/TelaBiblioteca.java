@@ -4,6 +4,10 @@
  */
 package views;
 
+import controllers.LivroController;
+import java.util.List;
+import models.Livro;
+
 /**
  *
  * @author USER
@@ -18,6 +22,22 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+    
+    public static List<Livro> getLivros( ) {
+        return LivroController.getAllLivros();
+    }
+    
+    public static void RenderizaLivros() {
+        int i = 0;
+        var livros = getLivros();
+
+        while (i < livros.size()) {
+            // INICIO DA TELA
+            // FIM TELA
+            i++;
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
