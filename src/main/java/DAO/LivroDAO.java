@@ -86,7 +86,7 @@ public class LivroDAO {
             preparedStatement.setString(1, livro.getNome());
             preparedStatement.setString(2, livro.getSinopse());
             preparedStatement.setString(3, livro.getCapa());
-            preparedStatement.setString(3, livro.getCap());
+            //preparedStatement.setString(3, livro.getCap());
             preparedStatement.setString(5, livro.getArquivo_livro());
             preparedStatement.setBoolean(5, false);
 

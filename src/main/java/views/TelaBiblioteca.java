@@ -6,6 +6,17 @@ package views;
 
 import controllers.LivroController;
 import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import java.awt.*;
+
 import models.Livro;
 
 /**
@@ -28,14 +39,44 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     }
     
     public static void RenderizaLivros() {
-        int i = 0;
         var livros = getLivros();
+        jframe_info.setLayout(new GridLayout(0, 3));
 
-        while (i < livros.size()) {
-            // INICIO DA TELA
-            // FIM TELA
-            i++;
-        }
+        for (Livro livro : livros) {
+        //Cria o painel e define a orientação dele
+        JPanel bookPanel = new JPanel();
+        bookPanel.setLayout(new BoxLayout(bookPanel, BoxLayout.Y_AXIS));
+
+        //Label responsável pela Imagem
+        JLabel imageLabel = new JLabel();
+
+        //Atribuição de imagem ao Label
+        ImageIcon icon = new ImageIcon("D:/Programacao/Java/facu_elib/src/main/java/views/images/duna.jpeg"); // Substitua pelo caminho da sua imagem.
+        icon = new ImageIcon(icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+        imageLabel.setIcon(icon);
+
+        //Label responsável pelo nome do Livro
+        JLabel titleLabel = new JLabel(livro.getNome());
+
+        //Centralização dos Elementos
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //Borda da Imagem para o título
+        imageLabel.setBorder(new EmptyBorder(0, 0, 5, 0));
+
+        //Adicionar os Componentes(Imagem + Título) ao Painel
+        bookPanel.add(imageLabel);
+        bookPanel.add(titleLabel);
+
+        //Adicionar o Painel no FrameVisual
+        jframe_info.add(
+            bookPanel
+        );
+    }
+    //Tamanho do FrameVisual e atualização após cada Loop
+    jframe_info.setPreferredSize(new Dimension(800, 600));
+    jframe_info.revalidate();
     }
     
 
@@ -53,11 +94,13 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         btn_confirmar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
         jframe_info = new javax.swing.JInternalFrame();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btn_livros.setText("Livros");
         btn_livros.addActionListener(new java.awt.event.ActionListener() {
@@ -79,49 +122,15 @@ public class TelaBiblioteca extends javax.swing.JFrame {
 
         jframe_info.setVisible(true);
 
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/images/duna.jpeg"))); // NOI18N
-
-        jLabel2.setText("Duna");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2))
-        );
-
         javax.swing.GroupLayout jframe_infoLayout = new javax.swing.GroupLayout(jframe_info.getContentPane());
         jframe_info.getContentPane().setLayout(jframe_infoLayout);
         jframe_infoLayout.setHorizontalGroup(
             jframe_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jframe_infoLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 622, Short.MAX_VALUE)
         );
         jframe_infoLayout.setVerticalGroup(
             jframe_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jframe_infoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(262, Short.MAX_VALUE))
+            .addGap(0, 398, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -173,6 +182,10 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_menuPrincActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        RenderizaLivros();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -213,9 +226,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private javax.swing.JButton btn_confirmar;
     private javax.swing.JButton btn_livros;
     private javax.swing.JButton btn_menuPrinc;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JInternalFrame jframe_info;
+    private static javax.swing.JInternalFrame jframe_info;
     // End of variables declaration//GEN-END:variables
 }
