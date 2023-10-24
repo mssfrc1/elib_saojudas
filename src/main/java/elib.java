@@ -23,8 +23,8 @@ public class elib {
         //System.out.println(LivroController.getAllLivros().get(5).getNome());
         //System.out.println();
         //System.out.println(LivroDAO.getGeneroByLivroId(1));
-        //TelaLogin.main(null);
-        TelaBiblioteca.RenderizaLivros();
+        TelaLogin.main(null);
+        //TelaBiblioteca.RenderizaLivros();
         //System.out.println(UsuarioDAO.Login("admin", "admin"));
     }
 }
