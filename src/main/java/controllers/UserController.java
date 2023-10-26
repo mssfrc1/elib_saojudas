@@ -8,11 +8,6 @@ import models.User;
 public class UserController {
 
     public static boolean login(String usuario, String senha) {
-        if (UsuarioDAO.Login(usuario, senha) != null) {
-            return true;
-        }
-        System.out.println("Falha na autenticação");
-        return false;
+        return UsuarioDAO.Login(usuario, senha) != null ? true : false; 
     }
-
 }
