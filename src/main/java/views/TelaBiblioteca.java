@@ -24,7 +24,7 @@ import models.Livro;
  * @author USER
  */
 public class TelaBiblioteca extends javax.swing.JFrame {
-
+    static String DIR_PAI_IMAGEM = "teste";
     /**
      * Creates new form TelaBiblioteca
      */
@@ -51,7 +51,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             JLabel imageLabel = new JLabel();
 
             // Atribuição de imagem ao Label
-            ImageIcon icon = new ImageIcon("D:/Programacao/Java/facu_elib/src/main/java/views/images/duna.jpeg");
+            ImageIcon icon = new ImageIcon(DIR_PAI_IMAGEM + "/" + livro.getCapa());
             icon = new ImageIcon(icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
             imageLabel.setIcon(icon);
 
