@@ -67,8 +67,6 @@ INSERT INTO
     public.genero(id, nome_genero)
 VALUES (1, 'Tecnico'), (2, 'Ficção Cientifica'), (3, 'Romance');
 
--- Rest of your INSERT statements for livro, usuario, and avaliacao tables.
-
 INSERT INTO
     public.livro (
         id,
