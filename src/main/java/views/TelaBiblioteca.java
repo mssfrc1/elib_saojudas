@@ -7,15 +7,12 @@ package views;
 import controllers.LivroController;
 import java.util.List;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.MouseAdapter;
 
 import models.Livro;
 
@@ -33,8 +30,10 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+
+
     
-    public static List<Livro> getLivros( ) {
+    public static List<Livro> getLivros() {
         return LivroController.getAllLivros();
     }
     
@@ -68,6 +67,13 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         //Adicionar os Componentes(Imagem + Título) ao Painel
         bookPanel.add(imageLabel);
         bookPanel.add(titleLabel);
+
+        bookPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Painel clicado!" + livro.getId());
+            }
+        });
 
         //Adicionar o Painel no FrameVisual
         jframe_info.add(
