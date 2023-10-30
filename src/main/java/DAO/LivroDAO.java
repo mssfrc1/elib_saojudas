@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import models.Livro;
-import models.User;
 import persistence.BancoDados;
 
 public class LivroDAO {
@@ -15,7 +14,15 @@ public class LivroDAO {
     private static final String SELECT_ALL_LIVROS = "SELECT * FROM livro";
     private static final String INSERT_LIVRO = "INSERT INTO livro(nome, sinopse, id_genero, capa, arquivo_livro) VALUES (?,?,?,?,?)";
     private static final String GET_GENERO_BY_LIVRO_ID = "SELECT livro.*, g.* FROM livro INNER JOIN genero AS g ON livro.id_genero = g.id WHERE livro.id = ?";
-    static Connection connection = null;
+    private static final String GET_MEDIA_BY_LIVRO_ID = "SELECT " +
+        "liv.nome, " +
+        "SUM(av.nota) AS soma_avaliacao, " +
+        "COUNT(av.id_livro) AS count_livro, " +
+        "SUM(av.nota) / COUNT(av.id_livro) AS media_avaliacao " +
+        "FROM public.avaliacao AS av " +
+        "INNER JOIN (SELECT id, nome FROM livro) AS liv ON liv.id = av.id_livro " +
+        "WHERE liv.id = ? " +
+        "GROUP BY av.id_usuario, av.id_livro, liv.nome;";
 
     // Recebe todos os livros do banco de dados, a query passada é através da:
     // private static final String SELECT_ALL_LIVROS
@@ -41,7 +48,8 @@ public class LivroDAO {
                 );
     
                 livro.setGenero(getGeneroByLivroId(connection, resultSet.getInt("id")));
-    
+                livro.setMedia(10);
+                
                 livros.add(livro);
             }
         } catch (SQLException e) {
