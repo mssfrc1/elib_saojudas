@@ -8,14 +8,14 @@ public class Livro {
     private String arquivo_livro;
     private String id_genero;
     private String genero;
+    private int media;
 
-    public Livro(int id, String nome, String sinopse, String capa, String arquivo_livro, String id_genero) {
+    public Livro(int id, String nome, String sinopse, String capa, String arquivo_livro, String string) {
     this.id = id;
     this.nome = nome;
     this.sinopse = sinopse;
     this.capa = capa;
     this.arquivo_livro = arquivo_livro;
-    this.id_genero = id_genero;
     }
 
     public int getId() {
@@ -73,9 +73,20 @@ public class Livro {
         this.id_genero = id_genero;
     }
 
-    public String toString() {
-        return "Livro [id=" + id + ", nome=" + nome + ", sinopse=" + sinopse + ", capa=" + capa + ", arquivo_livro=" + arquivo_livro + ", genero=" + genero + ", id_genero=" + id_genero + "]";
+    public int getMedia() {
+        return media;
     }
+
+    public void setMedia(int media) {
+        this.media = media;
+    }
+
+    @Override
+    public String toString() {
+        return "Livro [id=" + id + ", nome=" + nome + ", sinopse=" + sinopse + ", capa=" + capa + ", arquivo_livro="
+                + arquivo_livro + ", id_genero=" + id_genero + ", genero=" + genero + ", media=" + media + "]";
+    }
+
 
 
 }
