@@ -13,7 +13,8 @@ import persistence.BancoDados;
 public class UsuarioDAO {
     private static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuario";
     private static final String LOGIN = "SELECT * FROM usuario WHERE usuario = ? AND senha = ?";
-    private static final String INSERT_USUARIO = "INSERT INTO usuario(nome,sobrenome,usuario,senha,admin) VALUES (?,?,?,?,?)";
+    private static final String SELECT_USER_ADMIN = "SELECT usuario,admin FROM usuario WHERE usuario = ?";
+    private static final String INSERT_USUARIO = "INSERT INTO usuario (nome,sobrenome,usuario,senha,admin) VALUES (?,?,?,?,?)";
     static Connection connection = null;
 
     public static List<User> getAllUsuarios() {
@@ -116,5 +117,43 @@ public class UsuarioDAO {
             BancoDados.fecharConexao(connection);
         }
         return usuarioUser;
+    }
+
+    public static List<User> getAdmin(String usuario) {
+        List<User> adminList = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = BancoDados.ConexaoDb();
+
+            preparedStatement = connection.prepareStatement(SELECT_USER_ADMIN);
+            preparedStatement.setString(1, usuario);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                User usuarioUser = new User();
+                usuarioUser.setUsuario(resultSet.getString("usuario"));
+                usuarioUser.setAdmin(resultSet.getBoolean("admin"));
+
+                adminList.add(usuarioUser);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BancoDados.fecharConexao(connection);
+        }
+
+        return adminList;
+    }
+
+    public static boolean verificacaoUsuarioAdmin(String usuario) {
+        List<User> listaUserAdmin = getAdmin(usuario);
+        Boolean verificacaoLista = listaUserAdmin.stream()
+                .map(n -> n.getAdmin())
+                .toList()
+                .contains(true);
+
+        return verificacaoLista;
     }
 }

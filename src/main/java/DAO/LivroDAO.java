@@ -12,7 +12,7 @@ import persistence.BancoDados;
 public class LivroDAO {
 
     private static final String SELECT_ALL_LIVROS = "SELECT * FROM livro";
-    private static final String INSERT_LIVRO = "INSERT INTO livro(nome, sinopse, id_genero, capa, arquivo_livro) VALUES (?,?,?,?,?)";
+    private static final String INSERT_LIVRO = "INSERT INTO livro (nome, sinopse, id_genero, capa, arquivo_livro) VALUES (?,?,?,?,?)";
     private static final String GET_GENERO_BY_LIVRO_ID = "SELECT livro.*, g.* FROM livro INNER JOIN genero AS g ON livro.id_genero = g.id WHERE livro.id = ?";
     private static final String GET_MEDIA_BY_LIVRO_ID = "SELECT " +
         "liv.nome, " +
@@ -84,6 +84,7 @@ public class LivroDAO {
 
     public static int criarLivro(Livro livro) {
         PreparedStatement preparedStatement = null;
+        Connection connection = null;
         int resultado = 0;
 
         try {

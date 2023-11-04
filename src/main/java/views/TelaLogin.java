@@ -2,7 +2,10 @@ package views;
 
 import controllers.UserController;
 import java.awt.event.KeyEvent;
+import java.util.Properties;
+
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author guilh
@@ -20,7 +23,8 @@ public class TelaLogin extends javax.swing.JFrame {
     }
     
     public String getPassword() {
-        return jPasswordField1.getText();
+        String pegarSenha = String.valueOf(jPasswordField1.getPassword());
+        return pegarSenha;
     }
 
     /** This method is called from within the constructor to
@@ -114,6 +118,11 @@ public class TelaLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public static String passarUser () {
+        var user = jTextField1.getText();
+        return user;
+    }
+
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER && jButton1ActionPerformed(null) == true) {
             this.setVisible(false);
@@ -160,7 +169,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private static javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
 }

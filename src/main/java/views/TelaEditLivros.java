@@ -6,6 +6,9 @@ package views;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
+
+import controllers.UserController;
 
 /**
  *
@@ -17,10 +20,8 @@ public class TelaEditLivros extends javax.swing.JFrame {
      * Creates new form TelaEditLivros
      */
 
-    JTextArea txtA_sinopse = new JTextArea();
-    JScrollPane spDescricao = new JScrollPane(txtA_sinopse);
-
     public TelaEditLivros() {
+        super("Tela dos Livros");
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -38,27 +39,21 @@ public class TelaEditLivros extends javax.swing.JFrame {
         tab_info = new javax.swing.JTable();
         jFrame1 = new javax.swing.JFrame();
         label_pesqLivro = new javax.swing.JLabel();
-        label_id = new javax.swing.JLabel();
-        txt_buscarID = new javax.swing.JTextField();
-        btn_pesquisarID = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tab_info1 = new javax.swing.JTable();
-        label_dadosLivro = new javax.swing.JLabel();
-        label_nomeLivro = new javax.swing.JLabel();
-        txt_nomeLivro = new javax.swing.JTextField();
-        label_sinopse = new javax.swing.JLabel();
+        label_buscaNome = new javax.swing.JLabel();
+        txt_buscarNome = new javax.swing.JTextField();
+        btn_pesquisarNome = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        txtA_sinopse = new javax.swing.JTextArea();
-        label_genero = new javax.swing.JLabel();
-        txt_genero = new javax.swing.JTextField();
-        label_capa = new javax.swing.JLabel();
-        label_arquivoLivro = new javax.swing.JLabel();
-        txt_arquivoLivro = new javax.swing.JTextField();
-        btn_exluir = new javax.swing.JButton();
-        btn_voltar = new javax.swing.JButton();
-        btn_cadastrar = new javax.swing.JButton();
-        btn_alterar = new javax.swing.JButton();
-        btn_img = new javax.swing.JButton();
+        tab_info2 = new javax.swing.JTable();
+        menu = new javax.swing.JMenuBar();
+        itemBiblioteca = new javax.swing.JMenu();
+        menuLivro_ver = new javax.swing.JMenuItem();
+        menuLivro_Pesquisar = new javax.swing.JMenuItem();
+        menuLivro_Cadastro = new javax.swing.JMenuItem();
+        itemClientes = new javax.swing.JMenu();
+        menuCliente_Pesquisar = new javax.swing.JMenuItem();
+        menuCliente_Cadastro = new javax.swing.JMenuItem();
+        itemAvaliacao = new javax.swing.JMenu();
+        menuAvalia_Fazer = new javax.swing.JMenuItem();
 
         tab_info.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,14 +80,29 @@ public class TelaEditLivros extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        label_pesqLivro.setText("Pesquisar Livro");
+        label_pesqLivro.setText("Pesquisar nome do Livro: ");
 
-        label_id.setText("ID:");
+        label_buscaNome.setText("Nome: ");
 
-        btn_pesquisarID.setText("Pesquisar");
+        btn_pesquisarNome.setText("Pesquisar");
+        btn_pesquisarNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pesquisarNomeActionPerformed(evt);
+            }
+        });
 
-        tab_info1.setModel(new javax.swing.table.DefaultTableModel(
+        tab_info2 = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colindex){
+                return false;
+            }
+        };
+        tab_info2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -103,165 +113,176 @@ public class TelaEditLivros extends javax.swing.JFrame {
                 "ID", "Nome", "Sinopse", "Gênero", "Capa", "Arquivo do Livro"
             }
         ));
-        jScrollPane2.setViewportView(tab_info1);
-        if (tab_info1.getColumnModel().getColumnCount() > 0) {
-            tab_info1.getColumnModel().getColumn(0).setMaxWidth(50);
+        tab_info2.setFocusable(false);
+        tab_info2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tab_info2);
+        if (tab_info2.getColumnModel().getColumnCount() > 0) {
+            tab_info2.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
-        label_dadosLivro.setText("Dados Livros");
-
-        label_nomeLivro.setText("Nome: ");
-
-        label_sinopse.setText("Sinopse:");
-
-        txtA_sinopse.setColumns(20);
-        txtA_sinopse.setRows(5);
-        jScrollPane3.setViewportView(txtA_sinopse);
-
-        label_genero.setText("Gênero: ");
-
-        label_capa.setText("Capa: ");
-
-        label_arquivoLivro.setText("Arquivo do Livro: ");
-
-        btn_exluir.setText("Excluir");
-        btn_exluir.addActionListener(new java.awt.event.ActionListener() {
+        itemBiblioteca.setText("Biblioteca");
+        itemBiblioteca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_exluirActionPerformed(evt);
+                itemBibliotecaActionPerformed(evt);
             }
         });
 
-        btn_voltar.setText("VOLTAR");
-        btn_voltar.addActionListener(new java.awt.event.ActionListener() {
+        menuLivro_ver.setText("Ver Livros");
+        menuLivro_ver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_voltarActionPerformed(evt);
+                menuLivro_verActionPerformed(evt);
             }
         });
+        itemBiblioteca.add(menuLivro_ver);
 
-        btn_cadastrar.setText("Cadastrar");
-
-        btn_alterar.setText("Alterar");
-
-        btn_img.setText("Abrir Imagem");
-        btn_img.addActionListener(new java.awt.event.ActionListener() {
+        menuLivro_Pesquisar.setText("Pesquisar Livros");
+        menuLivro_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_imgActionPerformed(evt);
+                menuLivro_PesquisarActionPerformed(evt);
             }
         });
+        itemBiblioteca.add(menuLivro_Pesquisar);
+
+        menuLivro_Cadastro.setText("Cadastrar Livros");
+        menuLivro_Cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLivro_CadastroActionPerformed(evt);
+            }
+        });
+        itemBiblioteca.add(menuLivro_Cadastro);
+
+        menu.add(itemBiblioteca);
+
+        itemClientes.setText("Clientes");
+
+        menuCliente_Pesquisar.setText("Pesquisar Cliente");
+        menuCliente_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCliente_PesquisarActionPerformed(evt);
+            }
+        });
+        itemClientes.add(menuCliente_Pesquisar);
+
+        if (UserController.verificacaoUsuarioAdmin(views.TelaLogin.passarUser())) {
+            menuCliente_Cadastro.setText("Cadastrar Cliente");
+            menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    menuCliente_CadastroActionPerformed(evt);
+                }
+            });
+            itemClientes.add(menuCliente_Cadastro);
+        }
+        
+        menu.add(itemClientes);
+
+        itemAvaliacao.setText("Avaliações");
+
+        menuAvalia_Fazer.setText("Fazer Avaliação");
+        menuAvalia_Fazer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAvalia_FazerActionPerformed(evt);
+            }
+        });
+        itemAvaliacao.add(menuAvalia_Fazer);
+
+        menu.add(itemAvaliacao);
+
+        setJMenuBar(menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(label_pesqLivro))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(label_id)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_buscarID)))
-                .addGap(18, 18, 18)
-                .addComponent(btn_pesquisarID))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label_genero)
-                                    .addComponent(label_capa)
-                                    .addComponent(label_arquivoLivro))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_genero, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
-                                    .addComponent(txt_arquivoLivro)
-                                    .addComponent(btn_img)))
+                                .addGap(45, 45, 45)
+                                .addComponent(label_pesqLivro))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label_nomeLivro)
-                                    .addComponent(label_dadosLivro))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addComponent(txt_nomeLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label_sinopse)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(btn_exluir)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_cadastrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_alterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_voltar))
-                    .addComponent(jScrollPane2))
+                                .addComponent(label_buscaNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_buscarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_pesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(label_pesqLivro)
-                .addGap(38, 38, 38)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_id)
-                    .addComponent(txt_buscarID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_pesquisarID))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(label_dadosLivro)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_nomeLivro)
-                    .addComponent(txt_nomeLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_sinopse))
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_genero)
-                    .addComponent(txt_genero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_capa)
-                    .addComponent(btn_img))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_arquivoLivro)
-                    .addComponent(txt_arquivoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_exluir)
-                    .addComponent(btn_voltar)
-                    .addComponent(btn_cadastrar)
-                    .addComponent(btn_alterar))
-                .addContainerGap())
+                    .addComponent(txt_buscarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_pesquisarNome)
+                    .addComponent(label_buscaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_exluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exluirActionPerformed
+    private void btn_pesquisarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarNomeActionPerformed
+        String pegarNome = txt_buscarNome.getText();
+                 
+        DefaultTableModel tb = (DefaultTableModel)tab_info2.getModel();
+        tb.addRow(
+            new Object[]{
+                78, "null", "null", 4, "null", "48"
+        });
+
+        tab_info2.validate();
+    }//GEN-LAST:event_btn_pesquisarNomeActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ((DefaultTableModel) tab_info2.getModel()).setRowCount(0);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void menuLivro_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLivro_verActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_exluirActionPerformed
-
-    private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
-        var TelaMenuAdmin = new TelaMenuAdmin();
-        TelaMenuAdmin.setVisible(true);
+        var TelaBiblioteca = new TelaBiblioteca();
+        TelaBiblioteca.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btn_voltarActionPerformed
+    }//GEN-LAST:event_menuLivro_verActionPerformed
 
-    private void btn_imgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_imgActionPerformed
-        var TelaIMG = new TelaIMG();
-        TelaIMG.setVisible(true);
-    }//GEN-LAST:event_btn_imgActionPerformed
+    private void menuLivro_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLivro_PesquisarActionPerformed
+        var TelaEditLivros = new TelaEditLivros();
+        TelaEditLivros.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_menuLivro_PesquisarActionPerformed
+
+    private void menuLivro_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLivro_CadastroActionPerformed
+        var TelaCadastroLivro = new TelaCadastroLivro();
+        TelaCadastroLivro.setVisible(true);
+    }//GEN-LAST:event_menuLivro_CadastroActionPerformed
+
+    private void itemBibliotecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBibliotecaActionPerformed
+
+    }//GEN-LAST:event_itemBibliotecaActionPerformed
+
+    private void menuCliente_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCliente_PesquisarActionPerformed
+        var TelaEditClient = new TelaEditClient();
+        TelaEditClient.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_menuCliente_PesquisarActionPerformed
+
+    private void menuCliente_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCliente_CadastroActionPerformed
+        var TelaCadastroClient = new TelaCadastroClient();
+        TelaCadastroClient.setVisible(true);
+    }//GEN-LAST:event_menuCliente_CadastroActionPerformed
+
+    private void menuAvalia_FazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAvalia_FazerActionPerformed
+        var TelaAvaliacao = new TelaAvaliacao();
+        TelaAvaliacao.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_menuAvalia_FazerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,29 +320,24 @@ public class TelaEditLivros extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_alterar;
-    private javax.swing.JButton btn_cadastrar;
-    private javax.swing.JButton btn_exluir;
-    private javax.swing.JButton btn_img;
-    private javax.swing.JButton btn_pesquisarID;
-    private javax.swing.JButton btn_voltar;
+    private javax.swing.JButton btn_pesquisarNome;
+    private javax.swing.JMenu itemAvaliacao;
+    private javax.swing.JMenu itemBiblioteca;
+    private javax.swing.JMenu itemClientes;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel label_arquivoLivro;
-    private javax.swing.JLabel label_capa;
-    private javax.swing.JLabel label_dadosLivro;
-    private javax.swing.JLabel label_genero;
-    private javax.swing.JLabel label_id;
-    private javax.swing.JLabel label_nomeLivro;
+    private javax.swing.JLabel label_buscaNome;
     private javax.swing.JLabel label_pesqLivro;
-    private javax.swing.JLabel label_sinopse;
+    private javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem menuAvalia_Fazer;
+    private javax.swing.JMenuItem menuCliente_Cadastro;
+    private javax.swing.JMenuItem menuCliente_Pesquisar;
+    private javax.swing.JMenuItem menuLivro_Cadastro;
+    private javax.swing.JMenuItem menuLivro_Pesquisar;
+    private javax.swing.JMenuItem menuLivro_ver;
     private javax.swing.JTable tab_info;
-    private javax.swing.JTable tab_info1;
-    private javax.swing.JTextField txt_arquivoLivro;
-    private javax.swing.JTextField txt_buscarID;
-    private javax.swing.JTextField txt_genero;
-    private javax.swing.JTextField txt_nomeLivro;
+    private javax.swing.JTable tab_info2;
+    private javax.swing.JTextField txt_buscarNome;
     // End of variables declaration//GEN-END:variables
 }
