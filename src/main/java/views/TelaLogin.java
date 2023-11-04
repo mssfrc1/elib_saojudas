@@ -17,7 +17,7 @@ public class TelaLogin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
+       
     public String getUsuario() {
         return jTextField1.getText();
     }

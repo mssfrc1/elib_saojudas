@@ -9,7 +9,7 @@ package views;
  * @author USER
  */
 public class TelaIMG extends javax.swing.JFrame {
-
+   
     /**
      * Creates new form TelaIMG
      */
