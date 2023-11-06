@@ -1,7 +1,11 @@
 package views;
 
+import controllers.UserController;
 import java.awt.event.KeyEvent;
+import java.util.Properties;
+
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author guilh
@@ -11,14 +15,16 @@ public class TelaLogin extends javax.swing.JFrame {
     /** Creates new form TelaLogin */
     public TelaLogin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
-    
+       
     public String getUsuario() {
         return jTextField1.getText();
     }
     
     public String getPassword() {
-        return jPasswordField1.getText();
+        String pegarSenha = String.valueOf(jPasswordField1.getPassword());
+        return pegarSenha;
     }
 
     /** This method is called from within the constructor to
@@ -99,8 +105,11 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (getUsuario().equals("admin") && getPassword().equals("admin")) {
+        if (UserController.login(getUsuario(), getPassword())) {
             JOptionPane.showMessageDialog(null, "Usuario Encontrado");
+            var telaBiblioteca = new TelaBiblioteca();
+            telaBiblioteca.setVisible(true);
+            dispose();
             return true;
             //redirecionar para outro Frame
         } else {
@@ -108,6 +117,11 @@ public class TelaLogin extends javax.swing.JFrame {
             return false;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    public static String passarUser () {
+        var user = jTextField1.getText();
+        return user;
+    }
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER && jButton1ActionPerformed(null) == true) {
@@ -155,7 +169,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private static javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
 }
