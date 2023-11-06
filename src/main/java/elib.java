@@ -2,8 +2,8 @@ import java.util.Arrays;
 
 import controllers.*;
 import models.User;
-import views.TelaBiblioteca;
-import views.TelaLogin;
+import views.Livro.TelaBiblioteca;
+import views.Usuarios.TelaLogin;
 import DAO.*;
 
 public class elib {
