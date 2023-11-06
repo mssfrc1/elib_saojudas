@@ -10,9 +10,6 @@ import persistence.BancoDados;
 public class AvaliacaoDAO {
     private static final String INSERT_AVALIACAO_BY_USUARIO_ID = "INSERT INTO avaliacao (id_usuario,id_livro,data_inicio,nota) VALUES (?,?,?,?);";
     static Connection connection = null;
-
-    //Aqui desacoplei o código dos models, para maior flexibilidade e não necessidade de diversas instâncias únicas e variaveis do livro e usuario.
-    //Embora isso desrespeite o padrão imposto, o impacto será quase zero.
     
     public static int insertAvaliacaoByUsuarioId(int id_usuario, int id_livro, int avaliacao) {
         PreparedStatement preparedStatement = null;

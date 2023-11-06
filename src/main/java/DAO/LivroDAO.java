@@ -41,10 +41,10 @@ public class LivroDAO {
                 livro.setCapa(resultSet.getString("capa"));
                 livro.setArquivo_livro(resultSet.getString("arquivo_livro"));
                 livro.setId_genero(resultSet.getString("id_genero"));
-    
+                
+                livro.setMedia(getMediaByLivroId(resultSet.getInt("id")));
                 livro.setGenero(getGeneroByLivroId(connection, resultSet.getInt("id")));
-                livro.setMedia(10);
-    
+
                 livros.add(livro);
             }
         } catch (SQLException e) {
@@ -74,34 +74,39 @@ public class LivroDAO {
         return genero;
     }
     
-
-    public static int criarLivro(Livro livro) {
-        PreparedStatement preparedStatement = null;
+    public static int criarLivro(String nome, String sinopse, String capa, String arquivo_livro, int id_genero, String genero, int media) {
         int resultado = 0;
-
-        Connection connection;
-        try {
-            connection = BancoDados.ConexaoDb();
-
-            preparedStatement = connection.prepareStatement(INSERT_LIVRO);
-
-            preparedStatement.setString(1, livro.getNome());
-            preparedStatement.setString(2, livro.getSinopse());
-            preparedStatement.setString(3, livro.getCapa());
-            preparedStatement.setString(5, livro.getArquivo_livro());
-            preparedStatement.setBoolean(5, false);
+        try (Connection connection = BancoDados.ConexaoDb();
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_LIVRO)) {
+            preparedStatement.setString(1, );
+            preparedStatement.setString(2, );
+            preparedStatement.setString(3, );
+            preparedStatement.setString(4, );
 
             resultado = preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
-            e.getSQLState();
+            e.printStackTrace();
         }
-
         return resultado;
     }
 
-    public static int getMediaByLivroId(){
-        
+
+    //Realiza o cáculo de média de cada livro, baseado no id
+    //sum media / count media.
+    public static int getMediaByLivroId(int livroId) {
+        int media = 0;
+        try (Connection connection = BancoDados.ConexaoDb();
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_MEDIA_BY_LIVRO_ID)) {
+            preparedStatement.setInt(1, livroId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                media = resultSet.getInt("media_avaliacao");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return media;
     }
+
 
 }

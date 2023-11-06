@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class BancoDados {
 
     //Define ambiente de producao (1) ou teste (0) Aiven/psql Local
-    private static int Producao = 0;
+    private static int Producao = 1;
 
     public static Connection ConexaoDb() {
         

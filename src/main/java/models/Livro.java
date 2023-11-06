@@ -6,7 +6,7 @@ public class Livro {
     private String sinopse;
     private String capa;
     private String arquivo_livro;
-    private String id_genero;
+    private int id_genero;
     private String genero;
     private int media;
 
@@ -57,11 +57,11 @@ public class Livro {
         return genero;
     }
 
-    public String getId_genero() {
+    public int getId_genero() {
         return id_genero;
     }
 
-    public void setId_genero(String id_genero) {
+    public void setId_genero(int id_genero) {
         this.id_genero = id_genero;
     }
 
