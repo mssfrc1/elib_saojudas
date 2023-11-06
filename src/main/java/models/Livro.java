@@ -10,14 +10,6 @@ public class Livro {
     private String genero;
     private int media;
 
-    public Livro(int id, String nome, String sinopse, String capa, String arquivo_livro, String string) {
-    this.id = id;
-    this.nome = nome;
-    this.sinopse = sinopse;
-    this.capa = capa;
-    this.arquivo_livro = arquivo_livro;
-    }
-
     public int getId() {
         return id;
     }

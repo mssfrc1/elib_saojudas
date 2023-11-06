@@ -28,34 +28,27 @@ public class LivroDAO {
     // private static final String SELECT_ALL_LIVROS
     public static List<Livro> getAllLivros() {
         List<Livro> livros = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
     
-        try {
-            connection = BancoDados.ConexaoDb();
-            preparedStatement = connection.prepareStatement(SELECT_ALL_LIVROS);
-            resultSet = preparedStatement.executeQuery();
+        try (Connection connection = BancoDados.ConexaoDb();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_LIVROS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
     
             while (resultSet.next()) {
-                Livro livro = new Livro(
-                    resultSet.getInt("id"),
-                    resultSet.getString("nome"),
-                    resultSet.getString("sinopse"),
-                    resultSet.getString("capa"),
-                    resultSet.getString("arquivo_livro"),
-                    resultSet.getString("id_genero")
-                );
+                Livro livro = new Livro();
+                livro.setId(resultSet.getInt("id"));
+                livro.setNome(resultSet.getString("nome"));
+                livro.setSinopse(resultSet.getString("sinopse"));
+                livro.setCapa(resultSet.getString("capa"));
+                livro.setArquivo_livro(resultSet.getString("arquivo_livro"));
+                livro.setId_genero(resultSet.getString("id_genero"));
     
                 livro.setGenero(getGeneroByLivroId(connection, resultSet.getInt("id")));
                 livro.setMedia(10);
-                
+    
                 livros.add(livro);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            BancoDados.fecharConexao(connection);
         }
     
         return livros;
@@ -86,6 +79,7 @@ public class LivroDAO {
         PreparedStatement preparedStatement = null;
         int resultado = 0;
 
+        Connection connection;
         try {
             connection = BancoDados.ConexaoDb();
 
@@ -94,7 +88,6 @@ public class LivroDAO {
             preparedStatement.setString(1, livro.getNome());
             preparedStatement.setString(2, livro.getSinopse());
             preparedStatement.setString(3, livro.getCapa());
-            //preparedStatement.setString(3, livro.getCap());
             preparedStatement.setString(5, livro.getArquivo_livro());
             preparedStatement.setBoolean(5, false);
 
@@ -102,17 +95,13 @@ public class LivroDAO {
 
         } catch (SQLException e) {
             e.getSQLState();
-        } finally {
-            BancoDados.fecharConexao(connection);
         }
 
-        if (resultado == 0) {
-            System.out.print("Houve um erro ao executar a query");
-            return resultado;
-        } else {
-            System.out.println("A query foi realiza com êxito");
-            return resultado;
-        }
+        return resultado;
+    }
+
+    public static int getMediaByLivroId(){
+        
     }
 
 }

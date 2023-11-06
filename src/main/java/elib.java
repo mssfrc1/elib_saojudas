@@ -20,11 +20,11 @@ public class elib {
         //System.out.println(teste);
         // getAdmin("admin");         
         // criarUsuario(new User("Rodrig","Bossii","rbossini","teste"));
-        //System.out.println(LivroController.getAllLivros().get(5).getNome());
+        System.out.println(LivroController.getAllLivros().get(1).getNome());
         //System.out.println();
         //System.out.println(LivroDAO.getGeneroByLivroId(1));
         //TelaLogin.main(null);
-        System.out.println(AvaliacaoDAO.insertAvaliacaoByUsuarioId(1,3,7));
+        //System.out.println(AvaliacaoDAO.insertAvaliacaoByUsuarioId(1,3,7));
         //TelaBiblioteca.RenderizaLivros();
         //System.out.println(UsuarioDAO.Login("admin", "admin"));
     }

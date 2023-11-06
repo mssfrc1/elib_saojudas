@@ -13,7 +13,7 @@ import persistence.BancoDados;
 public class UsuarioDAO {
     private static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuario";
     private static final String LOGIN = "SELECT * FROM usuario WHERE usuario = ? AND senha = ?";
-    private static final String INSERT_USUARIO = "INSERT INTO usuario(nome,sobrenome,usuario,senha,admin) VALUES (?,?,?,?,?)";
+    private static final String INSERT_USUARIO = "INSERT INTO usuario(nome,sobrenome,usuario,senha,admin,idade,sexo) VALUES (?,?,?,?,?,?,?)";
     static Connection connection = null;
 
     public static List<User> getAllUsuarios() {
@@ -28,23 +28,20 @@ public class UsuarioDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                User usuario = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("nome"),
-                    resultSet.getString("sobrenome"),
-                    resultSet.getString("usuario"),
-                    resultSet.getString("senha"),
-                    resultSet.getInt("idade"),
-                    resultSet.getString("sexo"),
-                    resultSet.getBoolean("admin")
-                );
+                User usuario = new User();
+                usuario.setId(resultSet.getInt("id"));
+                usuario.setNome(resultSet.getString("nome"));
+                usuario.setSobrenome(resultSet.getString("sobrenome"));
+                usuario.setUsuario(resultSet.getString("usuario"));
+                usuario.setSenha(resultSet.getString("senha"));
+                usuario.setIdade(resultSet.getInt("idade"));
+                usuario.setSexo(resultSet.getString("sexo"));
+                usuario.setAdmin(resultSet.getBoolean("admin"));
 
                 usuarios.add(usuario);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            BancoDados.fecharConexao(connection);
         }
 
         return usuarios;
@@ -64,20 +61,20 @@ public class UsuarioDAO {
             preparedStatement.setString(3, user.getUsuario());
             preparedStatement.setString(4, user.getSenha());
             preparedStatement.setBoolean(5, false);
+            preparedStatement.setInt(6, user.getIdade());
+            preparedStatement.setString(7, user.getSexo());
 
             resultado = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.getSQLState();
-        } finally {
-            BancoDados.fecharConexao(connection);
         }
 
         if (resultado == 0) {
             System.out.print("Houve um erro ao executar a query");
             return resultado;
         } else {
-            System.out.println("A query foi realiza com êxito");
+            System.out.println("A query foi realizada com êxito");
             return resultado;
         }
     }
@@ -96,24 +93,21 @@ public class UsuarioDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-               User usuarioLogado = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("nome"),
-                    resultSet.getString("sobrenome"),
-                    resultSet.getString("usuario"),
-                    resultSet.getString("senha"),
-                    resultSet.getInt("idade"),
-                    resultSet.getString("sexo"),
-                    resultSet.getBoolean("admin")
-                );
+                User usuarioLogado = new User();
+                usuarioLogado.setId(resultSet.getInt("id"));
+                usuarioLogado.setNome(resultSet.getString("nome"));
+                usuarioLogado.setSobrenome(resultSet.getString("sobrenome"));
+                usuarioLogado.setUsuario(resultSet.getString("usuario"));
+                usuarioLogado.setSenha(resultSet.getString("senha"));
+                usuarioLogado.setIdade(resultSet.getInt("idade"));
+                usuarioLogado.setSexo(resultSet.getString("sexo"));
+                usuarioLogado.setAdmin(resultSet.getBoolean("admin"));
 
                 usuarioUser = usuarioLogado;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            BancoDados.fecharConexao(connection);
         }
         return usuarioUser;
     }
