@@ -79,6 +79,4 @@ public class Livro {
                 + arquivo_livro + ", id_genero=" + id_genero + ", genero=" + genero + ", media=" + media + "]";
     }
 
-
-
 }

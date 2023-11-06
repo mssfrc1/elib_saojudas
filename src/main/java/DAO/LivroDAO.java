@@ -12,7 +12,7 @@ import persistence.BancoDados;
 public class LivroDAO {
 
     private static final String SELECT_ALL_LIVROS = "SELECT * FROM livro";
-    private static final String INSERT_LIVRO = "INSERT INTO livro(nome, sinopse, id_genero, capa, arquivo_livro) VALUES (?,?,?,?,?)";
+    private static final String INSERT_LIVRO = "INSERT INTO livro(nome, sinopse, capa, arquivo_livro, id_genero, media) VALUES (?,?,?,?,?,?)";
     private static final String GET_GENERO_BY_LIVRO_ID = "SELECT livro.*, g.* FROM livro INNER JOIN genero AS g ON livro.id_genero = g.id WHERE livro.id = ?";
     private static final String GET_MEDIA_BY_LIVRO_ID = "SELECT " +
         "liv.nome, " +
@@ -40,7 +40,7 @@ public class LivroDAO {
                 livro.setSinopse(resultSet.getString("sinopse"));
                 livro.setCapa(resultSet.getString("capa"));
                 livro.setArquivo_livro(resultSet.getString("arquivo_livro"));
-                livro.setId_genero(resultSet.getString("id_genero"));
+                livro.setId_genero(resultSet.getInt("id_genero"));
                 
                 livro.setMedia(getMediaByLivroId(resultSet.getInt("id")));
                 livro.setGenero(getGeneroByLivroId(connection, resultSet.getInt("id")));
@@ -73,15 +73,19 @@ public class LivroDAO {
     
         return genero;
     }
-    
-    public static int criarLivro(String nome, String sinopse, String capa, String arquivo_livro, int id_genero, String genero, int media) {
+            
+    //Insere os livros pedindo os campos como parâmetros obrigatorios
+    public static int criarLivro(String nome, String sinopse, String capa, String arquivo_livro, int id_genero, int media) {
         int resultado = 0;
         try (Connection connection = BancoDados.ConexaoDb();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_LIVRO)) {
-            preparedStatement.setString(1, );
-            preparedStatement.setString(2, );
-            preparedStatement.setString(3, );
-            preparedStatement.setString(4, );
+            preparedStatement.setString(1, nome);
+            preparedStatement.setString(2, sinopse);
+            preparedStatement.setString(3, capa);
+            preparedStatement.setString(4, arquivo_livro);
+            preparedStatement.setInt(5, id_genero);
+            preparedStatement.setInt(6, media);
+
 
             resultado = preparedStatement.executeUpdate();
         } catch (SQLException e) {

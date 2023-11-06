@@ -20,9 +20,7 @@ public class elib {
         //System.out.println(teste);
         // getAdmin("admin");         
         // criarUsuario(new User("Rodrig","Bossii","rbossini","teste"));
-        //System.out.println(LivroController.getAllLivros().get(1).getNome());
-        System.out.println();
-        
+        //System.out.println(LivroController.getAllLivros().get(1));
         //System.out.println();
         //System.out.println(LivroDAO.getGeneroByLivroId(1));
         //TelaLogin.main(null);

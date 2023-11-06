@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import models.User;
 import persistence.BancoDados;
 
@@ -14,18 +13,14 @@ public class UsuarioDAO {
     private static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuario";
     private static final String LOGIN = "SELECT * FROM usuario WHERE usuario = ? AND senha = ?";
     private static final String INSERT_USUARIO = "INSERT INTO usuario(nome,sobrenome,usuario,senha,admin,idade,sexo) VALUES (?,?,?,?,?,?,?)";
-    static Connection connection = null;
 
+    //Retorna uma lista com todos os usuarios, os dados passam pelo Model e são acessados através do objeto usuarios
     public static List<User> getAllUsuarios() {
-        List<User> usuarios = new ArrayList<>();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        List<User> usuarios = new ArrayList();
 
-        try {
-            connection = BancoDados.ConexaoDb();
-
-            preparedStatement = connection.prepareStatement(SELECT_ALL_USUARIOS);
-            resultSet = preparedStatement.executeQuery();
+        try (Connection connection = BancoDados.ConexaoDb();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USUARIOS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 User usuario = new User();
@@ -47,68 +42,63 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    public static int criarUsuario(User user) {
-        PreparedStatement preparedStatement = null;
+    //Cria um usuario, as informações obrigatórias são passadas por parâmetro
+    public static int criarUsuario(String nome, String sobrenome, String usuario, String senha, int idade, String sexo){
         int resultado = 0;
 
-        try {
-            connection = BancoDados.ConexaoDb();
+        try (Connection connection = BancoDados.ConexaoDb();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USUARIO)) {
 
-            preparedStatement = connection.prepareStatement(INSERT_USUARIO);
-
-            preparedStatement.setString(1, user.getNome());
-            preparedStatement.setString(2, user.getSobrenome());
-            preparedStatement.setString(3, user.getUsuario());
-            preparedStatement.setString(4, user.getSenha());
+            preparedStatement.setString(1, nome);
+            preparedStatement.setString(2, sobrenome);
+            preparedStatement.setString(3, usuario);
+            preparedStatement.setString(4, senha);
             preparedStatement.setBoolean(5, false);
-            preparedStatement.setInt(6, user.getIdade());
-            preparedStatement.setString(7, user.getSexo());
+            preparedStatement.setInt(6, idade);
+            preparedStatement.setString(7, sexo);
 
             resultado = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.getSQLState();
+            e.printStackTrace();
         }
 
         if (resultado == 0) {
-            System.out.print("Houve um erro ao executar a query");
-            return resultado;
+            System.out.print("Usuario criado com sucesso");
         } else {
-            System.out.println("A query foi realizada com êxito");
-            return resultado;
+            System.out.println("Falha ao criar o usuario");
         }
+        return resultado;
     }
 
     public static User Login(String usuario, String senha) {
         User usuarioUser = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
-        try {
-            connection = BancoDados.ConexaoDb();
+        try (Connection connection = BancoDados.ConexaoDb();
+             PreparedStatement preparedStatement = connection.prepareStatement(LOGIN)) {
 
-            preparedStatement = connection.prepareStatement(LOGIN);
             preparedStatement.setString(1, usuario);
             preparedStatement.setString(2, senha);
-            resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                User usuarioLogado = new User();
-                usuarioLogado.setId(resultSet.getInt("id"));
-                usuarioLogado.setNome(resultSet.getString("nome"));
-                usuarioLogado.setSobrenome(resultSet.getString("sobrenome"));
-                usuarioLogado.setUsuario(resultSet.getString("usuario"));
-                usuarioLogado.setSenha(resultSet.getString("senha"));
-                usuarioLogado.setIdade(resultSet.getInt("idade"));
-                usuarioLogado.setSexo(resultSet.getString("sexo"));
-                usuarioLogado.setAdmin(resultSet.getBoolean("admin"));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    User usuarioLogado = new User();
+                    usuarioLogado.setId(resultSet.getInt("id"));
+                    usuarioLogado.setNome(resultSet.getString("nome"));
+                    usuarioLogado.setSobrenome(resultSet.getString("sobrenome"));
+                    usuarioLogado.setUsuario(resultSet.getString("usuario"));
+                    usuarioLogado.setSenha(resultSet.getString("senha"));
+                    usuarioLogado.setIdade(resultSet.getInt("idade"));
+                    usuarioLogado.setSexo(resultSet.getString("sexo"));
+                    usuarioLogado.setAdmin(resultSet.getBoolean("admin"));
 
-                usuarioUser = usuarioLogado;
+                    usuarioUser = usuarioLogado;
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return usuarioUser;
     }
 }
