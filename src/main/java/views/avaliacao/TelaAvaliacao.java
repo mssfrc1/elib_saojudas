@@ -5,6 +5,8 @@
 package views.avaliacao;
 
 import controllers.UserController;
+import views.livro.TelaBiblioteca;
+import views.livro.TelaCadastroLivro;
 import views.usuario.TelaCadastroClient;
 import views.usuario.TelaEditClient;
 import views.usuario.TelaEditLivros;

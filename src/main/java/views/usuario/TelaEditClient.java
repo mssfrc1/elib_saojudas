@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import controllers.LivroController;
 import controllers.UserController;
 import models.User;
-import views.livro.TelaAvaliacao;
+import views.avaliacao.TelaAvaliacao;
 import views.livro.TelaBiblioteca;
 import views.livro.TelaCadastroLivro;
 

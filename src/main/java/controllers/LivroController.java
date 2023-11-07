@@ -10,7 +10,4 @@ public static List<Livro> getAllLivros() {
     return LivroDAO.getAllLivros();
 }
 
-
-
-
 }
