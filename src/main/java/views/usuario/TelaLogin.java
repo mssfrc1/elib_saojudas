@@ -107,9 +107,12 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (UserController.login(getUsuario(), getPassword())) {
+        var usuarioLogado = UserController.login(getUsuario(), getPassword());
+
+        if (usuarioLogado != null) {
+            System.out.println(usuarioLogado.getNome());
             JOptionPane.showMessageDialog(null, "Usuario Encontrado");
-            var telaBiblioteca = new TelaBiblioteca();
+            var telaBiblioteca = new TelaBiblioteca(usuarioLogado);
             telaBiblioteca.setVisible(true);
             dispose();
             return true;

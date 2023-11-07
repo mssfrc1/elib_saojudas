@@ -3,6 +3,7 @@ package views.livro;
 import controllers.LivroController;
 import controllers.UserController;
 import models.Livro;
+import models.User;
 import views.avaliacao.TelaAvaliacao;
 import views.usuario.TelaCadastroClient;
 import views.usuario.TelaEditClient;
@@ -24,15 +25,22 @@ import java.net.*;
  */
 public class TelaBiblioteca extends javax.swing.JFrame {
 
-    static String DIR_PAI_IMAGEM = "teste";
-    /**
-     * Creates new form TelaBiblioteca
-     */
-    public TelaBiblioteca() {
+    private static Object usuarioLogado;
+
+    public TelaBiblioteca(Object usuarioLogado) {
         super("E-Library");
         initComponents();
         setLocationRelativeTo(null);
+
+        this.usuarioLogado = usuarioLogado;
+        System.out.println(usuarioLogado);
     }
+
+    static String DIR_PAI_IMAGEM = "teste";
+    /**
+     * Creates new form TelaBiblioteca
+     * @param usuarioLogado2
+     */
 
     public static List<Livro> getLivros( ) {
         return LivroController.getAllLivros();
@@ -227,15 +235,15 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         });
         itemClientes.add(menuCliente_Pesquisar);
 
-        if (UserController.verificacaoUsuarioAdmin(views.usuario.TelaLogin.passarUser())) {
-            menuCliente_Cadastro.setText("Cadastrar Cliente");
-            menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    menuCliente_CadastroActionPerformed(evt);
-                }
-            });
-            itemClientes.add(menuCliente_Cadastro);
-        }
+        
+        menuCliente_Cadastro.setText("Cadastrar Cliente");
+        menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCliente_CadastroActionPerformed(evt);
+            }
+        });
+        itemClientes.add(menuCliente_Cadastro);
+        
 
         menu.add(itemClientes);
 
@@ -312,7 +320,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
 
     private void menuLivro_verActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-        var TelaBiblioteca = new TelaBiblioteca();
+        var TelaBiblioteca = new TelaBiblioteca(usuarioLogado);
         TelaBiblioteca.setVisible(true);
         dispose();        
     }                                                                           
@@ -347,7 +355,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaBiblioteca().setVisible(true);
+                new TelaBiblioteca(usuarioLogado).setVisible(true);
             }
         });
     }

@@ -9,6 +9,7 @@ public class User {
     private int idade;
     private String sexo;
     private boolean admin;
+    
 
     public int getId() {
         return id;

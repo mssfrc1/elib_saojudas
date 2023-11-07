@@ -2,7 +2,6 @@ import java.util.Arrays;
 
 import controllers.*;
 import models.User;
-import views.Usuarios.TelaLogin;
 import views.livro.TelaBiblioteca;
 import DAO.*;
 
@@ -15,7 +14,7 @@ public class elib {
         // System.out.println(LivroController.getLivroByGenero("Romance").get(1));   
         //getLivroByNome("Duna");         
         //getAllUsers();
-        //var teste = UserController.login("admin", "admin");
+        UserController.login("admin", "admin2");
         //System.out.println(UsuarioDAO.Login("admin","admin").get(0));
         //System.out.println(teste);
         // getAdmin("admin");         
