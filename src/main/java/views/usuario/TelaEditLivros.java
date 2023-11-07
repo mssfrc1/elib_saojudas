@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.UserController;
+import views.avaliacao.TelaAvaliacao;
 import views.livro.TelaBiblioteca;
 import views.livro.TelaCadastroLivro;
 

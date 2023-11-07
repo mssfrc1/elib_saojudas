@@ -25,6 +25,7 @@ import java.net.*;
 public class TelaBiblioteca extends javax.swing.JFrame {
 
     static String DIR_PAI_IMAGEM = "teste";
+
     /**
      * Creates new form TelaBiblioteca
      */
@@ -34,113 +35,61 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public static List<Livro> getLivros( ) {
+    public static List<Livro> getLivros() {
         return LivroController.getAllLivros();
     }
 
     public static void RenderizaLivros() {
         var livros = getLivros();
-        jframe_info.setLayout(new GridLayout(0, 3));
+
+         // Crie um JPanel com GridLayout para alinhar os livros em 3 colunas
+        JPanel jPanel1 = new JPanel(new GridLayout(0, 3)); // 0 significa que o número de linhas é determinado automaticamente
+
+        // Calcule o tamanho máximo para a imagem
+        Dimension frameSize = jScrollPane1.getSize(); // Obtém o tamanho do JScrollPane (assumindo que seja igual ao tamanho do JFrame)
+        int maxImageWidth = (int) (frameSize.getWidth() * 0.2); // 20% do tamanho do JFrame
 
         for (Livro livro : livros) {
-            // Cria o painel e define a orientação dele
-            JPanel bookPanel = new JPanel();
-            bookPanel.setLayout(new BoxLayout(bookPanel, BoxLayout.Y_AXIS));
+            // Crie um JPanel para cada livro com BoxLayout e alinhamento central
+            JPanel livroPanel = new JPanel();
+            livroPanel.setLayout(new BoxLayout(livroPanel, BoxLayout.Y_AXIS));
+            livroPanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Espaçamento de 10px em todas as direções
+            livroPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
 
-            // Label responsável pela Imagem
-            JLabel imageLabel = new JLabel();
+            // Crie um ImageIcon com o ícone de imagem do livro
+            ImageIcon icon = new ImageIcon("C:/Users/guilh/Downloads/duna.jpeg");
 
-            // Atribuição de imagem ao Label
-            ImageIcon icon = new ImageIcon(DIR_PAI_IMAGEM + "/" + livro.getCapa());
-            icon = new ImageIcon(icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
-            imageLabel.setIcon(icon);
+            // Redimensione a imagem para o tamanho máximo
+            Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, -1, Image.SCALE_SMOOTH);
+            icon = new ImageIcon(scaledImage);
 
-            // Label responsável pelo nome do Livro
-            JLabel titleLabel = new JLabel(livro.getNome());
+            // Crie um JLabel com o ícone de imagem redimensionado e espaçamento entre a imagem e o JLabel
+            JLabel labelComIcon = new JLabel(icon);
+            labelComIcon.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
+            labelComIcon.setBorder(new EmptyBorder(0, 0, 5, 0)); // Espaçamento de 5px na parte inferior
 
-            // Centralização dos Elementos
-            imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            // Crie um JLabel com o título do livro e centralize-o horizontalmente
+            JLabel tituloLabel = new JLabel(livro.getNome());
+            tituloLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
 
-            // Borda da Imagem para o título
-            imageLabel.setBorder(new EmptyBorder(0, 0, 5, 0));
-
-            // Adicionar os Componentes(Imagem + Título) ao Painel
-            bookPanel.add(imageLabel);
-            bookPanel.add(titleLabel);
-
-            bookPanel.addMouseListener(new MouseAdapter() {
+            livroPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    JFrame frame = new JFrame("Descrição do Livro " + livro.getNome());
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.setSize(600, 400);
-
-                    // Cria um painel para colocar os componentes
-                    JPanel panel = new JPanel(new GridBagLayout());
-                    frame.add(panel);
-
-                    // Label de título
-                    JLabel labelTitulo = new JLabel(livro.getNome());
-                    labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-                    labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-
-                    // Adiciona o rótulo do título ao topo do JFrame
-                    frame.add(labelTitulo, BorderLayout.PAGE_START);
-
-                    // Label de imagem
-                    ImageIcon imagem = new ImageIcon("D:/Programacao/Java/facu_elib/src/main/java/views/images/duna.jpeg");
-                    JLabel labelImagem = new JLabel(imagem);
-                    panel.add(labelImagem);
-
-                    // Área de texto para a descrição
-                    JTextArea textAreaDescricao = new JTextArea("Sinopse: " + livro.getSinopse());
-                    textAreaDescricao.setWrapStyleWord(true);
-                    textAreaDescricao.setLineWrap(true);
-                    textAreaDescricao.setOpaque(false);
-                    textAreaDescricao.setEditable(false);
-                    textAreaDescricao.setFocusable(false);
-
-                    // Crie um painel para a descrição com fundo cinza
-                    JPanel descricaoPanel = new JPanel();
-                    descricaoPanel.setBackground(new Color(242, 242, 242));
-                    descricaoPanel.setLayout(new BorderLayout());
-                    descricaoPanel.add(textAreaDescricao, BorderLayout.CENTER);
-
-                    // Use GridBagConstraints para fazer o painel da descrição ocupar todo o espaço
-                    // horizontal
-                    GridBagConstraints gbc = new GridBagConstraints();
-                    gbc.fill = GridBagConstraints.BOTH;
-                    gbc.weightx = 1.0;
-                    gbc.gridwidth = GridBagConstraints.REMAINDER;
-                    panel.add(descricaoPanel, gbc);
-
-                    // Botão para abrir o arquivo PDF local
-                    JButton botaoAbrirPDF = new JButton("Abrir PDF do Livro");
-                    botaoAbrirPDF.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            try {
-                                File arquivoPDF = new File("Caminho PDF"); 
-                                Desktop.getDesktop().open(arquivoPDF);
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-                    });
-                    panel.add(botaoAbrirPDF);
-                    // Exibe o JFrame
-                    frame.setVisible(true);
+                    DescricaoLivro livroFrame = new DescricaoLivro(livro);
+                    livroFrame.setVisible(true);
                 }
             });
 
-            // Adicionar o Painel no FrameVisual
-            jframe_info.add(
-                    bookPanel);
-        }
-        // Tamanho do FrameVisual e atualização após cada Loop
-        jframe_info.setPreferredSize(new Dimension(800, 600));
-        jframe_info.revalidate();
+        // Adicione os componentes ao JPanel do livro
+        livroPanel.add(labelComIcon);
+        livroPanel.add(tituloLabel);
+
+        // Adicione o JPanel do livro ao JPanel principal
+        jPanel1.add(livroPanel);
+    }
+
+    // Adicione o JPanel principal ao JScrollPane
+    jScrollPane1.setViewportView(jPanel1);
     }
 
     /**
@@ -149,10 +98,11 @@ public class TelaBiblioteca extends javax.swing.JFrame {
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jframe_info = new javax.swing.JInternalFrame();
+        jScrollPane1 = new javax.swing.JScrollPane();
         menu = new javax.swing.JMenuBar();
         itemBiblioteca = new javax.swing.JMenu();
         menuLivro_ver = new javax.swing.JMenuItem();
@@ -170,19 +120,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
-
-        jframe_info.setVisible(true);
-
-        javax.swing.GroupLayout jframe_infoLayout = new javax.swing.GroupLayout(jframe_info.getContentPane());
-        jframe_info.getContentPane().setLayout(jframe_infoLayout);
-        jframe_infoLayout.setHorizontalGroup(
-            jframe_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 596, Short.MAX_VALUE)
-        );
-        jframe_infoLayout.setVerticalGroup(
-            jframe_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 351, Short.MAX_VALUE)
-        );
 
         itemBiblioteca.setText("Biblioteca");
         itemBiblioteca.addActionListener(new java.awt.event.ActionListener() {
@@ -227,15 +164,18 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         });
         itemClientes.add(menuCliente_Pesquisar);
 
-        if (UserController.verificacaoUsuarioAdmin(views.usuario.TelaLogin.passarUser())) {
-            menuCliente_Cadastro.setText("Cadastrar Cliente");
-            menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    menuCliente_CadastroActionPerformed(evt);
-                }
-            });
-            itemClientes.add(menuCliente_Cadastro);
-        }
+        menuCliente_Cadastro.setText("Cadastrar Cliente");
+        menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCliente_CadastroActionPerformed(evt);
+            }
+        });
+        menuCliente_Cadastro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                menuCliente_CadastroPropertyChange(evt);
+            }
+        });
+        itemClientes.add(menuCliente_Cadastro);
 
         menu.add(itemClientes);
 
@@ -259,72 +199,74 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jframe_info)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jframe_info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowOpened
         RenderizaLivros();
         // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowOpened
+    }// GEN-LAST:event_formWindowOpened
 
-    private void menuLivro_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLivro_PesquisarActionPerformed
+    private void menuLivro_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuLivro_PesquisarActionPerformed
         var TelaEditLivros = new TelaEditLivros();
         TelaEditLivros.setVisible(true);
         dispose();
-    }//GEN-LAST:event_menuLivro_PesquisarActionPerformed
+    }// GEN-LAST:event_menuLivro_PesquisarActionPerformed
 
-    private void itemBibliotecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBibliotecaActionPerformed
-        
-    }//GEN-LAST:event_itemBibliotecaActionPerformed
+    private void itemBibliotecaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_itemBibliotecaActionPerformed
 
-    private void menuLivro_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLivro_CadastroActionPerformed
+    }// GEN-LAST:event_itemBibliotecaActionPerformed
+
+    private void menuLivro_CadastroActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuLivro_CadastroActionPerformed
         var TelaCadastroLivro = new TelaCadastroLivro();
         TelaCadastroLivro.setVisible(true);
-    }//GEN-LAST:event_menuLivro_CadastroActionPerformed
+    }// GEN-LAST:event_menuLivro_CadastroActionPerformed
 
-    private void menuCliente_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCliente_PesquisarActionPerformed
+    private void menuCliente_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuCliente_PesquisarActionPerformed
         var TelaEditClient = new TelaEditClient();
         TelaEditClient.setVisible(true);
         dispose();
-    }//GEN-LAST:event_menuCliente_PesquisarActionPerformed
+    }// GEN-LAST:event_menuCliente_PesquisarActionPerformed
 
-    private void menuCliente_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCliente_CadastroActionPerformed
+    private void menuCliente_CadastroActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuCliente_CadastroActionPerformed
         var TelaCadastroClient = new TelaCadastroClient();
         TelaCadastroClient.setVisible(true);
-    }//GEN-LAST:event_menuCliente_CadastroActionPerformed
+    }// GEN-LAST:event_menuCliente_CadastroActionPerformed
 
-    private void menuAvalia_FazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAvalia_FazerActionPerformed
+    private void menuAvalia_FazerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuAvalia_FazerActionPerformed
         var TelaAvaliacao = new TelaAvaliacao();
         TelaAvaliacao.setVisible(true);
         dispose();
-    }//GEN-LAST:event_menuAvalia_FazerActionPerformed
+    }// GEN-LAST:event_menuAvalia_FazerActionPerformed
 
-    private void menuLivro_verActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
+    private void menuLivro_verActionPerformed(java.awt.event.ActionEvent evt) {
         var TelaBiblioteca = new TelaBiblioteca();
         TelaBiblioteca.setVisible(true);
-        dispose();        
-    }                                                                           
+        dispose();
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+        // (optional) ">
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
+         * look and feel.
+         * For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -334,15 +276,19 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaBiblioteca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaBiblioteca.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaBiblioteca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaBiblioteca.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaBiblioteca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaBiblioteca.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaBiblioteca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaBiblioteca.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         }
-        //</editor-fold>
+        // </editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -356,7 +302,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenu itemAvaliacao;
     private javax.swing.JMenu itemBiblioteca;
     private javax.swing.JMenu itemClientes;
-    private static javax.swing.JInternalFrame jframe_info;
+    private static javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem menuAvalia_Fazer;
     private javax.swing.JMenuItem menuCliente_Cadastro;

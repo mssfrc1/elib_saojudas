@@ -1,6 +1,7 @@
 package views.usuario;
 
 import controllers.UserController;
+import models.User;
 import views.livro.TelaBiblioteca;
 
 import java.awt.event.KeyEvent;
@@ -25,8 +26,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }
     
     public String getPassword() {
-        String pegarSenha = String.valueOf(jPasswordField1.getPassword());
-        return pegarSenha;
+       return String.valueOf(jPasswordField1.getPassword());
     }
 
     /** This method is called from within the constructor to
@@ -107,13 +107,12 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (UserController.login(getUsuario(), getPassword())) {
+        if (UserController.login(getUsuario(), getPassword())[0] == true) {
             JOptionPane.showMessageDialog(null, "Usuario Encontrado");
             var telaBiblioteca = new TelaBiblioteca();
             telaBiblioteca.setVisible(true);
             dispose();
             return true;
-            //redirecionar para outro Frame
         } else {
             JOptionPane.showMessageDialog(null, "Usuario Não Encontrado");
             return false;
