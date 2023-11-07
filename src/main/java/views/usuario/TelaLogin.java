@@ -2,7 +2,7 @@ package views.usuario;
 
 import controllers.UserController;
 import models.User;
-import views.livro.TelaBiblioteca;
+import views.Livro.TelaBiblioteca;
 
 import java.awt.event.KeyEvent;
 import java.util.Properties;
@@ -107,7 +107,10 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (UserController.login(getUsuario(), getPassword())[0] == true) {
+       var usuarioLogado = UserController.login(getUsuario(), getPassword());
+
+        if (usuarioLogado != null) {
+            System.out.println(usuarioLogado.getNome());
             JOptionPane.showMessageDialog(null, "Usuario Encontrado");
             var telaBiblioteca = new TelaBiblioteca();
             telaBiblioteca.setVisible(true);
