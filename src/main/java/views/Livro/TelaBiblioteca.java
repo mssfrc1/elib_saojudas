@@ -25,7 +25,7 @@ import java.net.*;
  */
 public class TelaBiblioteca extends javax.swing.JFrame {
 
-    static String DIR_PAI_IMAGEM = "teste";
+    static String DIR_PAI_IMAGEM = "/Users/macbookpro/Desktop";
 
     /**
      * Creates new form TelaBiblioteca
@@ -60,7 +60,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             livroPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
 
             // Crie um ImageIcon com o ícone de imagem do livro
-            ImageIcon icon = new ImageIcon("C:/Users/guilh/Downloads/duna.jpeg");
+            ImageIcon icon = new ImageIcon(DIR_PAI_IMAGEM + "/" + livro.getCapa());
 
             // Redimensione a imagem para o tamanho máximo
             Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, -1, Image.SCALE_SMOOTH);

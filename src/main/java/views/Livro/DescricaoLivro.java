@@ -1,9 +1,10 @@
-package views.livro;
+package views.Livro;
 
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import models.Livro;
 
 public class DescricaoLivro extends JFrame {
+    public static final String DIR_PAI_IMAGEM = "/Users/macbookpro/Desktop";
     public DescricaoLivro(Livro livro) {
         setTitle("Detalhes do Livro");
         setSize(600, 450);
@@ -42,7 +44,10 @@ public class DescricaoLivro extends JFrame {
         panel.add(titleLabel, gbc);
 
         // Crie um JLabel para a imagem
-        ImageIcon icon = new ImageIcon("C:/Users/guilh/Downloads/duna.jpeg");
+        ImageIcon icon = new ImageIcon(DIR_PAI_IMAGEM + "/" + livro.getCapa());
+        int desiredWidht = (int) (getWidth() * 0.4);
+        Image scaledImage = icon.getImage().getScaledInstance(desiredWidht, -1, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(scaledImage);
         JLabel imageLabel = new JLabel(icon);
         gbc.gridx = 0;
         gbc.gridy = 1;
