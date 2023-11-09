@@ -19,7 +19,7 @@ public class BancoDados {
         //PRODUCAO
         String usernameProducao = "avnadmin";
         String senhaProducao = "AVNS_V27U2dHnvZxXUrpgqEs";
-        String urlProducao = "jdbc:postgresql://postgres-sql-elibrary-faculdade.a.aivencloud.com:15441/defaultdb?ssl=require";
+        String urlProducao = "jdbc:postgresql://postgres-sql-elibrary-faculdade.a.aivencloud.com:15441/postgres?ssl=require";
 
         Connection connection = null;
 

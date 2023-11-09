@@ -1,11 +1,9 @@
 package views.usuario;
 
 import controllers.UserController;
-import models.User;
-import views.Livro.TelaBiblioteca;
+import views.livro.TelaBiblioteca;
 
 import java.awt.event.KeyEvent;
-import java.util.Properties;
 
 import javax.swing.JOptionPane;
 

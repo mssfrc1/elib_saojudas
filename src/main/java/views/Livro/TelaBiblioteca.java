@@ -1,9 +1,9 @@
-package views.Livro;
+package views.livro;
 
 import controllers.LivroController;
 import controllers.UserController;
 import models.Livro;
-import models.User;
+import persistence.BancoDados;
 import views.avaliacao.TelaAvaliacao;
 import views.usuario.TelaCadastroClient;
 import views.usuario.TelaEditClient;
@@ -18,6 +18,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.sql.Connection;
 
 /**
  *
@@ -30,8 +31,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     /**
      * Creates new form TelaBiblioteca
      */
-    private User usuarioLogado = UserController.usuarioLogado;
-
     public TelaBiblioteca() {
         super("E-Library");
         initComponents();
@@ -40,6 +39,16 @@ public class TelaBiblioteca extends javax.swing.JFrame {
 
     public static List<Livro> getLivros() {
         return LivroController.getAllLivros();
+    }
+
+    private static ImageIcon loadImagemFromUrl(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            return new ImageIcon(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void RenderizaLivros() {
@@ -60,7 +69,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             livroPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
 
             // Crie um ImageIcon com o ícone de imagem do livro
-            ImageIcon icon = new ImageIcon("C:/Users/guilh/Downloads/duna.jpeg");
+            ImageIcon icon = loadImagemFromUrl(livro.getCapa());
 
             // Redimensione a imagem para o tamanho máximo
             Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, -1, Image.SCALE_SMOOTH);
@@ -116,9 +125,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         menuCliente_Cadastro = new javax.swing.JMenuItem();
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
-        if(usuarioLogado.getAdmin() == false){
-            itemClientes.setVisible(false);
-        }
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -175,12 +182,12 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 menuCliente_CadastroActionPerformed(evt);
             }
         });
-        menuCliente_Cadastro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        /*menuCliente_Cadastro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                //menuCliente_CadastroPropertyChange(evt);
+                menuCliente_CadastroPropertyChange(evt);
             }
         });
-        itemClientes.add(menuCliente_Cadastro);
+        itemClientes.add(menuCliente_Cadastro);*/
 
         menu.add(itemClientes);
 
@@ -317,4 +324,3 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuLivro_ver;
     // End of variables declaration//GEN-END:variables
 }
-
