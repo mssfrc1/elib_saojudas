@@ -116,7 +116,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         menu = new javax.swing.JMenuBar();
         itemBiblioteca = new javax.swing.JMenu();
-        menuLivro_ver = new javax.swing.JMenuItem();
         menuLivro_Pesquisar = new javax.swing.JMenuItem();
         menuLivro_Cadastro = new javax.swing.JMenuItem();
         itemClientes = new javax.swing.JMenu();
@@ -124,10 +123,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         menuCliente_Cadastro = new javax.swing.JMenuItem();
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
-
-        if(usuarioLogado.getAdmin() == false){
-            itemClientes.setVisible(false);
-        }
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -142,14 +137,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 itemBibliotecaActionPerformed(evt);
             }
         });
-
-        menuLivro_ver.setText("Ver Livros");
-        menuLivro_ver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLivro_verActionPerformed(evt);
-            }
-        });
-        itemBiblioteca.add(menuLivro_ver);
 
         menuLivro_Pesquisar.setText("Pesquisar Livros");
         menuLivro_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -189,8 +176,8 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 menuCliente_CadastroPropertyChange(evt);
             }
-        });
-        itemClientes.add(menuCliente_Cadastro);*/
+        });*/
+        itemClientes.add(menuCliente_Cadastro);
 
         menu.add(itemClientes);
 
@@ -324,6 +311,5 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCliente_Pesquisar;
     private javax.swing.JMenuItem menuLivro_Cadastro;
     private javax.swing.JMenuItem menuLivro_Pesquisar;
-    private javax.swing.JMenuItem menuLivro_ver;
     // End of variables declaration//GEN-END:variables
 }
