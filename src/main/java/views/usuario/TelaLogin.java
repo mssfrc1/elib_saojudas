@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  * @author guilh
  */
 public class TelaLogin extends javax.swing.JFrame {
+    public static final String DIR_PAI_IMAGEM = "/Users/macbookpro/Desktop";
 
     /** Creates new form TelaLogin */
     public TelaLogin() {
