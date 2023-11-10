@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.UserController;
+import models.User;
 import views.avaliacao.TelaAvaliacao;
 import views.livro.TelaBiblioteca;
 import views.livro.TelaCadastroLivro;
@@ -18,6 +19,8 @@ import views.livro.TelaCadastroLivro;
  * @author USER
  */
 public class TelaEditLivros extends javax.swing.JFrame {
+
+    private User usuarioLogado = UserController.usuarioLogado;
 
     /**
      * Creates new form TelaEditLivros
@@ -57,6 +60,9 @@ public class TelaEditLivros extends javax.swing.JFrame {
         menuCliente_Cadastro = new javax.swing.JMenuItem();
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
+        if(usuarioLogado.getAdmin() == false){
+            itemClientes.setVisible(false);
+        }
 
         tab_info.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -166,7 +172,7 @@ public class TelaEditLivros extends javax.swing.JFrame {
         });
         itemClientes.add(menuCliente_Pesquisar);
 
-        if (UserController.verificacaoUsuarioAdmin(views.usuario.TelaLogin.passarUser())) {
+        
             menuCliente_Cadastro.setText("Cadastrar Cliente");
             menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,7 +180,7 @@ public class TelaEditLivros extends javax.swing.JFrame {
                 }
             });
             itemClientes.add(menuCliente_Cadastro);
-        }
+        
         
         menu.add(itemClientes);
 
