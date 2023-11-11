@@ -92,7 +92,6 @@ public class LivroDAO {
         return resultado;
     }
 
-
     //Realiza o cáculo de média de cada livro, baseado no id
     //sum media / count media.
     public static int getMediaByLivroId(int livroId) {

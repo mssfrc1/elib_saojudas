@@ -14,4 +14,8 @@ public class UserController {
         }
         return user;
     }
+
+    public static int criarUsuario(User usuario) {
+        return UsuarioDAO.criarUsuario(new User(usuario.getNome(),usuario.getSobrenome(),usuario.getUsuario(),usuario.getSenha(),usuario.getIdade(),usuario.getSexo()));
+    }
 }

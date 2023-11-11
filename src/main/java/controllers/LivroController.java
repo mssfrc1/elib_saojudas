@@ -14,4 +14,5 @@ public class LivroController {
     public static int insertNewLivro(Livro livro) {
         return LivroDAO.criarLivro(new Livro(livro.getNome(), livro.getSinopse(),livro.getId_genero(), livro.getAutor()));
     }
+    
 }
