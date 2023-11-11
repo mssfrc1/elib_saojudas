@@ -12,7 +12,7 @@ import persistence.BancoDados;
 public class LivroDAO {
 
     private static final String SELECT_ALL_LIVROS = "SELECT * FROM livro";
-    private static final String INSERT_LIVRO = "INSERT INTO livro(nome, sinopse, capa, arquivo_livro, id_genero, media) VALUES (?,?,?,?,?,?)";
+    private static final String INSERT_LIVRO = "INSERT INTO livro(nome, sinopse, id_genero, autor) VALUES (?,?,?,?)";
     private static final String GET_GENERO_BY_LIVRO_ID = "SELECT livro.*, g.* FROM livro INNER JOIN genero AS g ON livro.id_genero = g.id WHERE livro.id = ?";
     private static final String GET_MEDIA_BY_LIVRO_ID = "SELECT " +
         "liv.nome, " +
@@ -75,22 +75,20 @@ public class LivroDAO {
     }
             
     //Insere os livros pedindo os campos como parâmetros obrigatorios
-    public static int criarLivro(String nome, String sinopse, String capa, String arquivo_livro, int id_genero, int media) {
+    public static int criarLivro(Livro livro) {
         int resultado = 0;
         try (Connection connection = BancoDados.ConexaoDb();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_LIVRO)) {
-            preparedStatement.setString(1, nome);
-            preparedStatement.setString(2, sinopse);
-            preparedStatement.setString(3, capa);
-            preparedStatement.setString(4, arquivo_livro);
-            preparedStatement.setInt(5, id_genero);
-            preparedStatement.setInt(6, media);
-
+            preparedStatement.setString(1, livro.getNome());
+            preparedStatement.setString(2, livro.getSinopse());
+            preparedStatement.setInt(3, livro.getId_genero());
+            preparedStatement.setString(4, livro.getAutor());
 
             resultado = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(resultado == 1 ? "Query realizada com sucesso" : "Houve um erro ao realizar a query");
         return resultado;
     }
 

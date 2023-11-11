@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
@@ -15,15 +16,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import models.Livro;
 
 public class DescricaoLivro extends JFrame {
     public DescricaoLivro(Livro livro) {
-        setTitle("Detalhes do Livro");
-        setSize(600, 450);
+        setTitle("Detalhes do Livro: " + livro.getNome());
+        setSize(600, 480);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -42,7 +45,10 @@ public class DescricaoLivro extends JFrame {
         panel.add(titleLabel, gbc);
 
         // Crie um JLabel para a imagem
-        ImageIcon icon = new ImageIcon("C:/Users/guilh/Downloads/duna.jpeg");
+        ImageIcon icon = loadImagemFromUrl(livro.getCapa());
+        int desiredWidht = (int) (getWidth() * 0.4);
+        Image scaledImage = icon.getImage().getScaledInstance(desiredWidht, -1, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(scaledImage);
         JLabel imageLabel = new JLabel(icon);
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -67,10 +73,12 @@ public class DescricaoLivro extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    File arquivoPDF = new File("Caminho PDF");
-                    Desktop.getDesktop().open(arquivoPDF);
+                    URI uri = new URI(livro.getArquivo_livro());
+                    Desktop.getDesktop().browse(uri);
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                } catch (URISyntaxException e1) {
+                    e1.printStackTrace();
                 }
             }
         });
@@ -83,6 +91,16 @@ public class DescricaoLivro extends JFrame {
 
         setContentPane(panel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    private ImageIcon loadImagemFromUrl(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            return new ImageIcon(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

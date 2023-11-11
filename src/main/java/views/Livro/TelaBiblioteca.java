@@ -1,4 +1,4 @@
-package views.Livro;
+package views.livro;
 
 import controllers.LivroController;
 import controllers.UserController;
@@ -16,7 +16,6 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.net.*;
 
 /**
@@ -26,12 +25,11 @@ import java.net.*;
 public class TelaBiblioteca extends javax.swing.JFrame {
 
     static String DIR_PAI_IMAGEM = "teste";
+    private User usuarioLogado = UserController.usuarioLogado;
 
     /**
      * Creates new form TelaBiblioteca
      */
-    private User usuarioLogado = UserController.usuarioLogado;
-
     public TelaBiblioteca() {
         super("E-Library");
         initComponents();
@@ -40,6 +38,16 @@ public class TelaBiblioteca extends javax.swing.JFrame {
 
     public static List<Livro> getLivros() {
         return LivroController.getAllLivros();
+    }
+
+    private static ImageIcon loadImagemFromUrl(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            return new ImageIcon(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void RenderizaLivros() {
@@ -60,7 +68,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             livroPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
 
             // Crie um ImageIcon com o ícone de imagem do livro
-            ImageIcon icon = new ImageIcon("C:/Users/guilh/Downloads/duna.jpeg");
+            ImageIcon icon = loadImagemFromUrl(livro.getCapa());
 
             // Redimensione a imagem para o tamanho máximo
             Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, -1, Image.SCALE_SMOOTH);
@@ -108,7 +116,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         menu = new javax.swing.JMenuBar();
         itemBiblioteca = new javax.swing.JMenu();
-        menuLivro_ver = new javax.swing.JMenuItem();
         menuLivro_Pesquisar = new javax.swing.JMenuItem();
         menuLivro_Cadastro = new javax.swing.JMenuItem();
         itemClientes = new javax.swing.JMenu();
@@ -119,6 +126,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         if(usuarioLogado.getAdmin() == false){
             itemClientes.setVisible(false);
         }
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -132,14 +140,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 itemBibliotecaActionPerformed(evt);
             }
         });
-
-        menuLivro_ver.setText("Ver Livros");
-        menuLivro_ver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLivro_verActionPerformed(evt);
-            }
-        });
-        itemBiblioteca.add(menuLivro_ver);
 
         menuLivro_Pesquisar.setText("Pesquisar Livros");
         menuLivro_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -175,11 +175,11 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 menuCliente_CadastroActionPerformed(evt);
             }
         });
-        menuCliente_Cadastro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        /*menuCliente_Cadastro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                //menuCliente_CadastroPropertyChange(evt);
+                menuCliente_CadastroPropertyChange(evt);
             }
-        });
+        });*/
         itemClientes.add(menuCliente_Cadastro);
 
         menu.add(itemClientes);
@@ -314,7 +314,5 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCliente_Pesquisar;
     private javax.swing.JMenuItem menuLivro_Cadastro;
     private javax.swing.JMenuItem menuLivro_Pesquisar;
-    private javax.swing.JMenuItem menuLivro_ver;
     // End of variables declaration//GEN-END:variables
 }
-

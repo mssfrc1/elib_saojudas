@@ -1,11 +1,9 @@
 package views.usuario;
 
 import controllers.UserController;
-import models.User;
-import views.Livro.TelaBiblioteca;
+import views.livro.TelaBiblioteca;
 
 import java.awt.event.KeyEvent;
-import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
@@ -14,6 +12,7 @@ import javax.swing.JOptionPane;
  * @author guilh
  */
 public class TelaLogin extends javax.swing.JFrame {
+    public static final String DIR_PAI_IMAGEM = "/Users/macbookpro/Desktop";
 
     /** Creates new form TelaLogin */
     public TelaLogin() {

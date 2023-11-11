@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 import controllers.*;
 import models.User;
-import views.Usuarios.TelaLogin;
+import views.usuario.TelaLogin;
 import views.livro.TelaBiblioteca;
 import DAO.*;
 
@@ -27,6 +27,6 @@ public class elib {
         //System.out.println(AvaliacaoDAO.insertAvaliacaoByUsuarioId(1,3,7));
         //TelaBiblioteca.RenderizaLivros();
         //System.out.println(UsuarioDAO.Login("admin", "admin"));
-        System.out.println(Arrays.toString(UserController.login("usuario","usuario")));
+        //System.out.println(Arrays.toString(UserController.login("usuario","usuario")));
     }
 }

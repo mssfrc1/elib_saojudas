@@ -44,6 +44,9 @@ public class TelaCadastroClient extends javax.swing.JFrame {
         txt_sexo = new javax.swing.JTextField();
         label_idade = new javax.swing.JLabel();
         password_senha = new javax.swing.JPasswordField();
+        lbl_livroFavo = new javax.swing.JLabel();
+        box_tipoLivro = new javax.swing.JComboBox<>();
+        box_tipoLivro2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro do Cliente");
@@ -74,6 +77,12 @@ public class TelaCadastroClient extends javax.swing.JFrame {
 
         label_idade.setText("Idade: ");
 
+        lbl_livroFavo.setText("Genero de livro favorito: (pode escolher no maximo 2)");
+
+        box_tipoLivro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Técnico", "Ação", "Romance", "Infantil", "Ficção" }));
+
+        box_tipoLivro2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Técnico", "Ação", "Romance", "Infantil", "Ficção" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,12 +90,6 @@ public class TelaCadastroClient extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 193, Short.MAX_VALUE)
-                        .addComponent(btn_voltar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_confirmar)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label_sobrenome)
@@ -102,7 +105,24 @@ public class TelaCadastroClient extends javax.swing.JFrame {
                             .addComponent(txt_nome)
                             .addComponent(txt_idade)
                             .addComponent(txt_sexo)
-                            .addComponent(password_senha)))))
+                            .addComponent(password_senha)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btn_voltar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_confirmar)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(box_tipoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(box_tipoLivro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(90, 90, 90))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(lbl_livroFavo)
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +151,13 @@ public class TelaCadastroClient extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_sexo)
                     .addComponent(txt_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_livroFavo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(box_tipoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_tipoLivro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_voltar)
                     .addComponent(btn_confirmar))
@@ -155,11 +181,9 @@ public class TelaCadastroClient extends javax.swing.JFrame {
 
         int idade = Integer.parseInt(pegarIdade);
 
-        System.out.println(pegarSenha);
-
-        var User = new User(nome, sobrenome, usuario, pegarSenha, idade, sexo);
+        //var User = new User(nome, sobrenome, usuario, pegarSenha, idade, sexo);
         
-        UserController.criarUsuario(User);   
+        //UserController.criarUsuario(User);   
     }//GEN-LAST:event_btn_confirmarActionPerformed
 
     /**
@@ -198,6 +222,8 @@ public class TelaCadastroClient extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> box_tipoLivro;
+    private javax.swing.JComboBox<String> box_tipoLivro2;
     private javax.swing.JButton btn_confirmar;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JLabel label_idade;
@@ -206,6 +232,7 @@ public class TelaCadastroClient extends javax.swing.JFrame {
     private javax.swing.JLabel label_sexo;
     private javax.swing.JLabel label_sobrenome;
     private javax.swing.JLabel label_usuario;
+    private javax.swing.JLabel lbl_livroFavo;
     private javax.swing.JPasswordField password_senha;
     private javax.swing.JTextField txt_idade;
     private javax.swing.JTextField txt_nome;
