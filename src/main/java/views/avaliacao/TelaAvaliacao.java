@@ -4,6 +4,8 @@
  */
 package views.avaliacao;
 
+import javax.swing.JOptionPane;
+
 import controllers.AvaliacaoController;
 import controllers.LivroController;
 import controllers.UserController;
@@ -74,7 +76,7 @@ public class TelaAvaliacao extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jEditorPane1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -357,11 +359,15 @@ public class TelaAvaliacao extends javax.swing.JFrame {
 
     private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
         try {
-            AvaliacaoController.insertAvaliacaoByUsuarioId(usuarioLogado.getId(),jComboBox1.getSelectedIndex()+1,jSlider1.getValue());
+            var avaliacao = AvaliacaoController.insertAvaliacaoByUsuarioId(usuarioLogado.getId(),jComboBox1.getSelectedIndex()+1,jSlider1.getValue());
+            if (avaliacao == 1) {
+                JOptionPane.showMessageDialog(null, "Avaliação feita com sucesso","Avalição",JOptionPane.YES_OPTION);
+            } else {
+                JOptionPane.showMessageDialog(null, "Houve um erro ao fazer a avaliação","Erro",JOptionPane.ERROR);
+            }
         } catch (Exception e) {
-            // TODO: handle exception
+            e.getStackTrace();
         }
-        System.out.println(jComboBox1.getSelectedIndex()+1);
     }//GEN-LAST:event_btn_confirmarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
