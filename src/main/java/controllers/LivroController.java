@@ -14,5 +14,11 @@ public class LivroController {
     public static int insertNewLivro(Livro livro) {
         return LivroDAO.criarLivro(new Livro(livro.getNome(), livro.getSinopse(),livro.getId_genero(), livro.getAutor()));
     }
-    
+
+    public static List<String> filterByName() {
+        return getAllLivros().stream()
+        .map(n -> n.getNome())
+        .toList();
+    }
+
 }
