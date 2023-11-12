@@ -4,6 +4,10 @@
  */
 package views.avaliacao;
 
+import javax.swing.JOptionPane;
+
+import controllers.AvaliacaoController;
+import controllers.LivroController;
 import controllers.UserController;
 import models.User;
 import views.livro.TelaBiblioteca;
@@ -42,23 +46,23 @@ public class TelaAvaliacao extends javax.swing.JFrame {
         jEditorPane1 = new javax.swing.JEditorPane();
         btn_confirmar = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
-        ra_btn_um = new javax.swing.JRadioButton();
-        ra_btn_dois = new javax.swing.JRadioButton();
-        ra_btn_tres = new javax.swing.JRadioButton();
-        ra_btn_quatro = new javax.swing.JRadioButton();
-        ra_btn_cinco = new javax.swing.JRadioButton();
-        ra_btn_seis = new javax.swing.JRadioButton();
-        ra_btn_sete = new javax.swing.JRadioButton();
-        ra_btn_oito = new javax.swing.JRadioButton();
-        ra_btn_nove = new javax.swing.JRadioButton();
-        ra_btn_dez = new javax.swing.JRadioButton();
         label_opRuim = new javax.swing.JLabel();
         label_opExce = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jSlider1 = new javax.swing.JSlider();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txt_nomeLrivo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         menu = new javax.swing.JMenuBar();
         itemBiblioteca = new javax.swing.JMenu();
         menuLivro_ver = new javax.swing.JMenuItem();
@@ -69,51 +73,52 @@ public class TelaAvaliacao extends javax.swing.JFrame {
         menuCliente_Cadastro = new javax.swing.JMenuItem();
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
-        if(usuarioLogado.getAdmin() == false){
-            itemClientes.setVisible(false);
-        }
 
         jScrollPane1.setViewportView(jEditorPane1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btn_confirmar.setText("CONFIRMAR");
-
-        ra_btn_um.setText("1");
-        ra_btn_um.addActionListener(new java.awt.event.ActionListener() {
+        btn_confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ra_btn_umActionPerformed(evt);
+                btn_confirmarActionPerformed(evt);
             }
         });
 
-        ra_btn_dois.setText("2");
+        label_opRuim.setText("0");
 
-        ra_btn_tres.setText("3");
-
-        ra_btn_quatro.setText("4");
-        ra_btn_quatro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ra_btn_quatroActionPerformed(evt);
-            }
-        });
-
-        ra_btn_cinco.setText("5");
-
-        ra_btn_seis.setText("6");
-
-        ra_btn_sete.setText("7");
-
-        ra_btn_oito.setText("8");
-
-        ra_btn_nove.setText("9");
-
-        ra_btn_dez.setText("10");
-
-        label_opRuim.setText("Muito Ruim");
-
-        label_opExce.setText("Excelente");
+        label_opExce.setText("10");
 
         jLabel1.setText("Deixe sua avaliação:");
+
+        jSlider1.setMaximum(10);
+        jSlider1.setPaintLabels(true);
+        jSlider1.setPaintTicks(true);
+        jSlider1.setToolTipText("");
+        jSlider1.setValue(4);
+
+        jLabel2.setText("5");
+
+        jLabel5.setText("1");
+
+        jLabel6.setText("2");
+
+        jLabel7.setText("3");
+
+        jLabel8.setText("4");
+
+        jLabel9.setText("6");
+
+        jLabel10.setText("7");
+
+        jLabel11.setText("8");
+
+        jLabel12.setText("9");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,62 +128,65 @@ public class TelaAvaliacao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(label_opRuim)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label_opExce))
+                        .addComponent(jLabel1)
+                        .addGap(0, 275, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(ra_btn_um)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_dois)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_tres)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_quatro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_cinco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_seis)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_sete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_oito)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_nove)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ra_btn_dez))
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(label_opRuim)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel6)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel7)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel9)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel10)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel11)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel12)
+                        .addGap(26, 26, 26)
+                        .addComponent(label_opExce)))
                 .addContainerGap())
+            .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ra_btn_um)
-                    .addComponent(ra_btn_dois)
-                    .addComponent(ra_btn_tres)
-                    .addComponent(ra_btn_quatro)
-                    .addComponent(ra_btn_cinco)
-                    .addComponent(ra_btn_seis)
-                    .addComponent(ra_btn_sete)
-                    .addComponent(ra_btn_oito)
-                    .addComponent(ra_btn_nove)
-                    .addComponent(ra_btn_dez))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_opRuim)
-                    .addComponent(label_opExce))
-                .addContainerGap())
+                    .addComponent(label_opExce)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel4.setText("Nome do Livro:");
 
         jLabel3.setText("Qual livro você gostaria de avaliar?");
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -188,10 +196,10 @@ public class TelaAvaliacao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_nomeLrivo, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(42, 42, 42))
         );
@@ -200,10 +208,10 @@ public class TelaAvaliacao extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_nomeLrivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -250,15 +258,13 @@ public class TelaAvaliacao extends javax.swing.JFrame {
         });
         itemClientes.add(menuCliente_Pesquisar);
 
-        
-            menuCliente_Cadastro.setText("Cadastrar Cliente");
-            menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    menuCliente_CadastroActionPerformed(evt);
-                }
-            });
-            itemClientes.add(menuCliente_Cadastro);
-        
+        menuCliente_Cadastro.setText("Cadastrar Cliente");
+        menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCliente_CadastroActionPerformed(evt);
+            }
+        });
+        itemClientes.add(menuCliente_Cadastro);
 
         menu.add(itemClientes);
 
@@ -281,40 +287,32 @@ public class TelaAvaliacao extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_confirmar)
+                        .addGap(216, 216, 216))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(134, 134, 134))
+                        .addGap(141, 141, 141))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_confirmar)
-                        .addGap(216, 216, 216))))
+                        .addGap(74, 74, 74))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(38, 38, 38)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(57, 57, 57)
                 .addComponent(btn_confirmar)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ra_btn_quatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ra_btn_quatroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ra_btn_quatroActionPerformed
-
-    private void ra_btn_umActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ra_btn_umActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ra_btn_umActionPerformed
 
     private void menuLivro_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLivro_verActionPerformed
         // TODO add your handling code here:
@@ -354,6 +352,30 @@ public class TelaAvaliacao extends javax.swing.JFrame {
         TelaAvaliacao.setVisible(true);
         dispose();
     }//GEN-LAST:event_menuAvalia_FazerActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
+        try {
+            var avaliacao = AvaliacaoController.insertAvaliacaoByUsuarioId(usuarioLogado.getId(),jComboBox1.getSelectedIndex()+1,jSlider1.getValue());
+            if (avaliacao == 1) {
+                JOptionPane.showMessageDialog(null, "Avaliação feita com sucesso","Avalição",JOptionPane.YES_OPTION);
+            } else {
+                JOptionPane.showMessageDialog(null, "Houve um erro ao fazer a avaliação","Erro",JOptionPane.ERROR);
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }//GEN-LAST:event_btn_confirmarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        var nomeLivros = LivroController.filterByName();
+        for (int i = 0; i < nomeLivros.size(); i++) {
+            jComboBox1.addItem(nomeLivros.get(i));
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -395,13 +417,24 @@ public class TelaAvaliacao extends javax.swing.JFrame {
     private javax.swing.JMenu itemAvaliacao;
     private javax.swing.JMenu itemBiblioteca;
     private javax.swing.JMenu itemClientes;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSlider jSlider1;
     private javax.swing.JLabel label_opExce;
     private javax.swing.JLabel label_opRuim;
     private javax.swing.JMenuBar menu;
@@ -411,16 +444,5 @@ public class TelaAvaliacao extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuLivro_Cadastro;
     private javax.swing.JMenuItem menuLivro_Pesquisar;
     private javax.swing.JMenuItem menuLivro_ver;
-    private javax.swing.JRadioButton ra_btn_cinco;
-    private javax.swing.JRadioButton ra_btn_dez;
-    private javax.swing.JRadioButton ra_btn_dois;
-    private javax.swing.JRadioButton ra_btn_nove;
-    private javax.swing.JRadioButton ra_btn_oito;
-    private javax.swing.JRadioButton ra_btn_quatro;
-    private javax.swing.JRadioButton ra_btn_seis;
-    private javax.swing.JRadioButton ra_btn_sete;
-    private javax.swing.JRadioButton ra_btn_tres;
-    private javax.swing.JRadioButton ra_btn_um;
-    private javax.swing.JTextField txt_nomeLrivo;
     // End of variables declaration//GEN-END:variables
 }

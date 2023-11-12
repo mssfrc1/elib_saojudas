@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
+import java.nio.file.FileAlreadyExistsException;
 
 /**
  *
@@ -101,6 +102,8 @@ public class TelaBiblioteca extends javax.swing.JFrame {
 
     // Adicione o JPanel principal ao JScrollPane
     jScrollPane1.setViewportView(jPanel1);
+    jScrollPane1.revalidate();
+    jScrollPane1.repaint();
     }
 
     /**
@@ -114,6 +117,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
+        jLabel1 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         itemBiblioteca = new javax.swing.JMenu();
         menuLivro_Pesquisar = new javax.swing.JMenuItem();
@@ -123,9 +127,14 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         menuCliente_Cadastro = new javax.swing.JMenuItem();
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
+
         if(usuarioLogado.getAdmin() == false){
             itemClientes.setVisible(false);
         }
+
+        jLabel1.setVisible(false);
+        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel1.setVerticalAlignment(SwingConstants.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -133,6 +142,9 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        jLabel1.setText("jLabel1");
 
         itemBiblioteca.setText("Biblioteca");
         itemBiblioteca.addActionListener(new java.awt.event.ActionListener() {
@@ -175,11 +187,11 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 menuCliente_CadastroActionPerformed(evt);
             }
         });
-        /*menuCliente_Cadastro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        menuCliente_Cadastro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 menuCliente_CadastroPropertyChange(evt);
             }
-        });*/
+        });
         itemClientes.add(menuCliente_Cadastro);
 
         menu.add(itemClientes);
@@ -201,17 +213,23 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(0,0,Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -219,7 +237,8 @@ public class TelaBiblioteca extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowOpened
         RenderizaLivros();
-        // TODO add your handling code here:
+        jLabel1.setText("Seja Bem-Vindo(a),  " + usuarioLogado.getNome());
+        jLabel1.setVisible(true);
     }// GEN-LAST:event_formWindowOpened
 
     private void menuLivro_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuLivro_PesquisarActionPerformed
@@ -251,7 +270,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private void menuAvalia_FazerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuAvalia_FazerActionPerformed
         var TelaAvaliacao = new TelaAvaliacao();
         TelaAvaliacao.setVisible(true);
-        dispose();
     }// GEN-LAST:event_menuAvalia_FazerActionPerformed
 
     private void menuLivro_verActionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,6 +325,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenu itemAvaliacao;
     private javax.swing.JMenu itemBiblioteca;
     private javax.swing.JMenu itemClientes;
+    private javax.swing.JLabel jLabel1;
     private static javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem menuAvalia_Fazer;

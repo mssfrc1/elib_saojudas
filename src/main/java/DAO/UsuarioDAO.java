@@ -43,31 +43,26 @@ public class UsuarioDAO {
     }
 
     //Cria um usuario, as informações obrigatórias são passadas por parâmetro
-    public static int criarUsuario(String nome, String sobrenome, String usuario, String senha, int idade, String sexo){
+    public static int criarUsuario(User usuario){
         int resultado = 0;
 
         try (Connection connection = BancoDados.ConexaoDb();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USUARIO)) {
 
-            preparedStatement.setString(1, nome);
-            preparedStatement.setString(2, sobrenome);
-            preparedStatement.setString(3, usuario);
-            preparedStatement.setString(4, senha);
+            preparedStatement.setString(1, usuario.getNome());
+            preparedStatement.setString(2, usuario.getSobrenome());
+            preparedStatement.setString(3, usuario.getUsuario());
+            preparedStatement.setString(4, usuario.getSenha());
             preparedStatement.setBoolean(5, false);
-            preparedStatement.setInt(6, idade);
-            preparedStatement.setString(7, sexo);
+            preparedStatement.setInt(6, usuario.getIdade());
+            preparedStatement.setString(7, usuario.getSexo());
 
             resultado = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        if (resultado == 0) {
-            System.out.print("Usuario criado com sucesso");
-        } else {
-            System.out.println("Falha ao criar o usuario");
-        }
+        System.out.println(resultado == 1 ? "Query realizado com sucesso" : "Houve um erro ao realizar a query");
         return resultado;
     }
 

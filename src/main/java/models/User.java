@@ -10,6 +10,18 @@ public class User {
     private String sexo;
     private boolean admin;
 
+    public User() {
+    }
+
+    public User(String nome, String sobrenome, String usuario, String senha, int idade, String sexo) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.idade = idade;
+        this.sexo = sexo;
+    }
+
     public int getId() {
         return id;
     }
