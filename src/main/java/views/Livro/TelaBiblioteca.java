@@ -273,6 +273,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     private void menuAvalia_FazerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuAvalia_FazerActionPerformed
         var TelaAvaliacao = new TelaAvaliacao();
         TelaAvaliacao.setVisible(true);
+        dispose();
     }// GEN-LAST:event_menuAvalia_FazerActionPerformed
 
     private void menuLivro_verActionPerformed(java.awt.event.ActionEvent evt) {
