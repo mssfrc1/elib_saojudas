@@ -60,14 +60,14 @@ public class LivroDAO {
     }
              
     //Insere os livros pedindo os campos como parâmetros obrigatorios
-    public static int criarLivro(Livro livro) {
+    public static int criarLivro(String nome, String sinopse, int id_genero, String autor) {
         int resultado = 0;
         try (Connection connection = BancoDados.ConexaoDb();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_LIVRO)) {
-            preparedStatement.setString(1, livro.getNome());
-            preparedStatement.setString(2, livro.getSinopse());
-            preparedStatement.setInt(3, livro.getId_genero());
-            preparedStatement.setString(4, livro.getAutor());
+            preparedStatement.setString(1, nome);
+            preparedStatement.setString(2, sinopse);
+            preparedStatement.setInt(3, id_genero);
+            preparedStatement.setString(4, autor);
 
             resultado = preparedStatement.executeUpdate();
         } catch (SQLException e) {
