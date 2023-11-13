@@ -12,9 +12,9 @@ import controllers.UserController;
 import models.User;
 import views.livro.TelaBiblioteca;
 import views.livro.TelaCadastroLivro;
+import views.livro.TelaEditLivros;
 import views.usuario.TelaCadastroClient;
 import views.usuario.TelaEditClient;
-import views.usuario.TelaEditLivros;
 
 /**
  *

@@ -7,7 +7,6 @@ import models.User;
 import views.avaliacao.TelaAvaliacao;
 import views.usuario.TelaCadastroClient;
 import views.usuario.TelaEditClient;
-import views.usuario.TelaEditLivros;
 
 import java.util.List;
 
@@ -16,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
 import java.net.*;
 import java.nio.file.FileAlreadyExistsException;
 
@@ -234,6 +234,9 @@ public class TelaBiblioteca extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    protected void menuCliente_CadastroPropertyChange(PropertyChangeEvent evt) {
+    }
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowOpened
         RenderizaLivros();

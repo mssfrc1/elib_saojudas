@@ -12,6 +12,7 @@ import models.User;
 import views.avaliacao.TelaAvaliacao;
 import views.livro.TelaBiblioteca;
 import views.livro.TelaCadastroLivro;
+import views.livro.TelaEditLivros;
 
 /**
  *
