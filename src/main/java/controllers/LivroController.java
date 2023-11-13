@@ -15,10 +15,8 @@ public class LivroController {
         return LivroDAO.criarLivro(new Livro(livro.getNome(), livro.getSinopse(),livro.getId_genero(), livro.getAutor()));
     }
 
-    public static List<String> filterByName() {
-        return getAllLivros().stream()
-        .map(n -> n.getNome())
-        .toList();
+    public static int getLastLivroId(){
+        return LivroDAO.getLastLivroId();
     }
 
 }

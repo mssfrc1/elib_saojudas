@@ -6,8 +6,8 @@ import models.Avaliacao;
 
 public class AvaliacaoController {
 
-public static int insertAvaliacaoByUsuarioId(int id_usuario, int id_livro, int avaliacao){
-    return AvaliacaoDAO.insertAvaliacaoByUsuarioId(id_usuario, id_livro, avaliacao);
+public static int insertAvaliacao(int id_usuario, int id_livro, int avaliacao){
+    return AvaliacaoDAO.insertAvaliacao(id_usuario, id_livro, avaliacao);
 }
 
 }

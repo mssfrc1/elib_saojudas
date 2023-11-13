@@ -29,6 +29,8 @@ public class LivroDAO {
         "JOIN avaliacao AS ava ON ava.id_livro = liv.id " +
         "GROUP BY liv.id, liv.nome, gen.nome_genero;";
 
+    private static final String GET_LAST_LIVRO_ID = "SELECT id FROM livro ORDER BY id DESC LIMIT 1";
+
     // Recebe todos os livros do banco de dados, a query passada é através da:
     // private static final String SELECT_ALL_LIVROS
     public static List<Livro> getAllLivros() {
@@ -76,5 +78,24 @@ public class LivroDAO {
         System.out.println(resultado == 1 ? "Query realizada com sucesso" : "Houve um erro ao realizar a query");
         return resultado;
     }
+
+    public static int getLastLivroId() {
+    int lastLivroId = -1; // Default value in case no result is found
+
+    try (Connection connection = BancoDados.ConexaoDb();
+         PreparedStatement preparedStatement = connection.prepareStatement(GET_LAST_LIVRO_ID);
+         ResultSet resultSet = preparedStatement.executeQuery()) {
+
+        if (resultSet.next()) {
+            lastLivroId = resultSet.getInt("id");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return lastLivroId;
+}
+
 
 }

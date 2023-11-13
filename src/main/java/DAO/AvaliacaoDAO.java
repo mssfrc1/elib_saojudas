@@ -10,13 +10,13 @@ import persistence.BancoDados;
 public class AvaliacaoDAO {
 
     //Insere uma avaliação, os dados obrigatórios são passados por parâmetro
-    private static final String INSERT_AVALIACAO_BY_USUARIO_ID = "INSERT INTO avaliacao (id_usuario, id_livro, data_inicio, nota) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_AVALIACAO = "INSERT INTO avaliacao (id_usuario, id_livro, data_inicio, nota) VALUES (?, ?, ?, ?)";
 
-        public static int insertAvaliacaoByUsuarioId(int id_usuario, int id_livro, int avaliacao) {
+        public static int insertAvaliacao(int id_usuario, int id_livro, int avaliacao) {
         int resultado = 0;
 
         try (Connection connection = BancoDados.ConexaoDb();
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_AVALIACAO_BY_USUARIO_ID)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_AVALIACAO)) {
 
             java.util.Date utilDate = new java.util.Date();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
