@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package views.usuario;
+package views.livro;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -11,8 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import controllers.UserController;
 import models.User;
 import views.avaliacao.TelaAvaliacao;
-import views.livro.TelaBiblioteca;
-import views.livro.TelaCadastroLivro;
+import views.usuario.TelaCadastroClient;
+import views.usuario.TelaEditClient;
 
 /**
  *

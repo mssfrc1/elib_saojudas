@@ -1,7 +1,5 @@
 package views.livro;
 
-import views.usuario.TelaEditLivros;
-
 /**
  *
  * @author USER
