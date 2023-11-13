@@ -11,8 +11,8 @@ public class LivroController {
         return LivroDAO.getAllLivros();
     }
 
-    public static int insertNewLivro(Livro livro) {
-        return LivroDAO.criarLivro(new Livro(livro.getNome(), livro.getSinopse(),livro.getId_genero(), livro.getAutor()));
+    public static int insertNewLivro(String nome, String sinopse, int id_genero, String autor) {
+        return LivroDAO.criarLivro(nome, sinopse, id_genero, autor);
     }
 
     public static int getLastLivroId(){

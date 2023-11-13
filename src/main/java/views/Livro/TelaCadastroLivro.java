@@ -74,7 +74,8 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
         jLabel1.setText("Autor: ");
 
-        comboBox_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Técnico", "Ação", "Romance", "Infantil", "Ficção" }));
+        comboBox_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
+            "Técnico", "Ação", "Romance", "Infantil", "Ficção Cientifica" }));
 
         jLabel2.setText("Nota:");
 
@@ -156,10 +157,14 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
         if (genero.equals("Técnico")) {
             return 1;
-        } else if (genero.equals("Ficção Cientifica")) {
+        } else if (genero.equals("Ação")) {
             return 2;
         } else if (genero.equals("Romance")) {
             return 3;
+        } else if (genero.equals("Infantil")) {
+            return 4;
+        } else if (genero.equals("Ficção Cientifica")) {
+            return 5;
         }
         return 0;
     }
@@ -173,11 +178,10 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         String autor = txt_autor.getText();
         String sinopse = txtA_sinopse.getText();
         int indiceSelecionado = verificaGenero(comboBox_genero.getSelectedItem().toString());
-        String nota = comboBox_nota.getSelectedItem().toString();
+        // String nota = comboBox_nota.getSelectedItem().toString();
 
-        System.out.print(nota);
         try {
-            LivroController.insertNewLivro(new Livro(nome, sinopse, indiceSelecionado, autor));    
+            LivroController.insertNewLivro(nome, sinopse, indiceSelecionado, autor);    
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
