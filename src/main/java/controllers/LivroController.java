@@ -19,4 +19,9 @@ public class LivroController {
         return LivroDAO.getLastLivroId();
     }
 
+    public static List<String> filterByName() {
+        return getAllLivros().stream()
+        .map(n -> n.getNome())
+        .toList();
+    }
 }

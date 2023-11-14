@@ -4,14 +4,21 @@
  */
 package views.livro;
 
+import javax.swing.JOptionPane;
+
+import controllers.AvaliacaoController;
 import controllers.LivroController;
+import controllers.UserController;
 import models.Livro;
+import models.User;
 
 /**
  *
  * @author 823133821
  */
 public class TelaCadastroLivro extends javax.swing.JFrame {
+    
+    private User usuarioLogado = UserController.usuarioLogado;
 
     /**
      * Creates new form TelaCadastroLivro
@@ -43,7 +50,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         txt_autor = new javax.swing.JTextField();
         comboBox_genero = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         comboBox_nota = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,8 +80,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
         jLabel1.setText("Autor: ");
 
-        comboBox_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
-            "Técnico", "Ação", "Romance", "Infantil", "Ficção Cientifica" }));
+        comboBox_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Técnico", "Ação", "Romance", "Infantil", "Ficção" }));
 
         jLabel2.setText("Nota:");
 
@@ -115,8 +120,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(comboBox_genero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(comboBox_nota, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(26, 26, 26)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -137,7 +140,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboBox_nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -169,6 +171,22 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         return 0;
     }
 
+    private int passarNota(String genero) {
+
+        if (genero.equals("Técnico")) {
+            return 1;
+        } else if (genero.equals("Ação")) {
+            return 2;
+        } else if (genero.equals("Romance")) {
+            return 3;
+        } else if (genero.equals("Infantil")) {
+            return 4;
+        } else if (genero.equals("Ficção Cientifica")) {
+            return 5;
+        }
+        return 0;
+    }
+
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
         dispose();
     }//GEN-LAST:event_btn_voltarActionPerformed
@@ -178,14 +196,21 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         String autor = txt_autor.getText();
         String sinopse = txtA_sinopse.getText();
         int indiceSelecionado = verificaGenero(comboBox_genero.getSelectedItem().toString());
-        // String nota = comboBox_nota.getSelectedItem().toString();
 
-        try {
-            LivroController.insertNewLivro(nome, sinopse, indiceSelecionado, autor);    
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        // Use Integer.parseInt() for converting the selected item to an integer
+        int nota = Integer.parseInt(comboBox_nota.getSelectedItem().toString());
+
+        if (nome != null && nome.length() != 0 &&
+            sinopse != null && sinopse.length() != 0 &&
+            autor != null && autor.length() != 0) {
+            if (LivroController.insertNewLivro(nome, sinopse, indiceSelecionado, autor) == 1) {
+                AvaliacaoController.insertAvaliacao(usuarioLogado.getId(), LivroController.getLastLivroId(), nota);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Dados Incompletos");
         }
-    }                                                
+    }
+                                           
     
     /**
      * @param args the command line arguments
@@ -230,7 +255,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel label_genero;
     private javax.swing.JLabel label_nomeLivro;
     private javax.swing.JLabel label_sinopse;

@@ -359,7 +359,7 @@ public class TelaAvaliacao extends javax.swing.JFrame {
 
     private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
         try {
-            var avaliacao = AvaliacaoController.insertAvaliacaoByUsuarioId(usuarioLogado.getId(),jComboBox1.getSelectedIndex()+1,jSlider1.getValue());
+            var avaliacao = AvaliacaoController.insertAvaliacao(usuarioLogado.getId(),jComboBox1.getSelectedIndex()+1,jSlider1.getValue());
             if (avaliacao == 1) {
                 JOptionPane.showMessageDialog(null, "Avaliação feita com sucesso","Avalição",JOptionPane.YES_OPTION);
             } else {

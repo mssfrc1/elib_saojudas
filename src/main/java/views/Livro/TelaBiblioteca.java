@@ -10,12 +10,14 @@ import views.usuario.TelaEditClient;
 
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
+import java.io.IOException;
 import java.net.*;
 import java.nio.file.FileAlreadyExistsException;
 
@@ -39,6 +41,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
 
     public static List<Livro> getLivros() {
         return LivroController.getAllLivros();
+
     }
 
     private static ImageIcon loadImagemFromUrl(String imageUrl) {
@@ -69,35 +72,63 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             livroPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
 
             // Crie um ImageIcon com o ícone de imagem do livro
-            ImageIcon icon = loadImagemFromUrl(livro.getCapa());
+            if (loadImagemFromUrl(livro.getCapa()) != null) {
+                ImageIcon icon = loadImagemFromUrl(livro.getCapa());
+                // Redimensione a imagem para o tamanho máximo
+                Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, -1, Image.SCALE_SMOOTH);
+                icon = new ImageIcon(scaledImage);
 
-            // Redimensione a imagem para o tamanho máximo
-            Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, -1, Image.SCALE_SMOOTH);
-            icon = new ImageIcon(scaledImage);
+                // Crie um JLabel com o ícone de imagem redimensionado e espaçamento entre a imagem e o JLabel
+                JLabel labelComIcon = new JLabel(icon);
+                labelComIcon.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
+                labelComIcon.setBorder(new EmptyBorder(0, 0, 5, 0)); // Espaçamento de 5px na parte inferior
 
-            // Crie um JLabel com o ícone de imagem redimensionado e espaçamento entre a imagem e o JLabel
-            JLabel labelComIcon = new JLabel(icon);
-            labelComIcon.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
-            labelComIcon.setBorder(new EmptyBorder(0, 0, 5, 0)); // Espaçamento de 5px na parte inferior
+                // Crie um JLabel com o título do livro e centralize-o horizontalmente
+                JLabel tituloLabel = new JLabel(livro.getNome());
+                tituloLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
 
-            // Crie um JLabel com o título do livro e centralize-o horizontalmente
-            JLabel tituloLabel = new JLabel(livro.getNome());
-            tituloLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
+                livroPanel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        DescricaoLivro livroFrame = new DescricaoLivro(livro);
+                        livroFrame.setVisible(true);
+                    }
+                });
+                // Adicione os componentes ao JPanel do livro
+                livroPanel.add(labelComIcon);
+                livroPanel.add(tituloLabel);
 
-            livroPanel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    DescricaoLivro livroFrame = new DescricaoLivro(livro);
-                    livroFrame.setVisible(true);
-                }
-            });
+                // Adicione o JPanel do livro ao JPanel principal
+                jPanel1.add(livroPanel);
+            } else {
+                ImageIcon icon = loadImagemFromUrl("https://i.pinimg.com/736x/a2/9f/64/a29f6458abfb132920fb8a99d8b60f85.jpg");
+                // Redimensione a imagem para o tamanho máximo
+                Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, -1, Image.SCALE_SMOOTH);
+                icon = new ImageIcon(scaledImage);
 
-        // Adicione os componentes ao JPanel do livro
-        livroPanel.add(labelComIcon);
-        livroPanel.add(tituloLabel);
+                // Crie um JLabel com o ícone de imagem redimensionado e espaçamento entre a imagem e o JLabel
+                JLabel labelComIcon = new JLabel(icon);
+                labelComIcon.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
+                labelComIcon.setBorder(new EmptyBorder(0, 0, 5, 0)); // Espaçamento de 5px na parte inferior
 
-        // Adicione o JPanel do livro ao JPanel principal
-        jPanel1.add(livroPanel);
+                // Crie um JLabel com o título do livro e centralize-o horizontalmente
+                JLabel tituloLabel = new JLabel(livro.getNome());
+                tituloLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
+
+                livroPanel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        DescricaoLivro livroFrame = new DescricaoLivro(livro);
+                        livroFrame.setVisible(true);
+                    }
+                });
+                // Adicione os componentes ao JPanel do livro
+                livroPanel.add(labelComIcon);
+                livroPanel.add(tituloLabel);
+
+                // Adicione o JPanel do livro ao JPanel principal
+                jPanel1.add(livroPanel);
+            }        
     }
 
     // Adicione o JPanel principal ao JScrollPane
