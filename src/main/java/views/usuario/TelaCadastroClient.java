@@ -8,6 +8,9 @@ import javax.swing.JOptionPane;
 
 import org.postgresql.util.PSQLException;
 
+import DAO.FavoritoDAO;
+import DAO.UsuarioDAO;
+import controllers.AvaliacaoController;
 import controllers.UserController;
 import models.User;
 
@@ -16,7 +19,7 @@ import models.User;
  * @author 823133821
  */
 public class TelaCadastroClient extends javax.swing.JFrame {
-
+        private User usuarioLogado = UserController.usuarioLogado;
     /**
      * Creates new form TelaCadastroClient
      */
@@ -214,12 +217,17 @@ public class TelaCadastroClient extends javax.swing.JFrame {
         String pegarSenha = new String(password_senha.getPassword());
         String pegarIdade = txt_idade.getText();
         String sexo = txt_sexo.getText();
+        int genero1 = box_tipoLivro.getSelectedIndex() + 1;
+        int genero2 = box_tipoLivro2.getSelectedIndex() + 1;
 
         try {
             int idade = Integer.parseInt(pegarIdade);
             var criarUsuario = UserController.criarUsuario(new User(nome, sobrenome, usuario, pegarSenha, idade, sexo));
             if (criarUsuario == 1) {
+                FavoritoDAO.insertAvaliacao(UserController.getLastUsuarioId(), genero1);
+                FavoritoDAO.insertAvaliacao(UserController.getLastUsuarioId(), genero2);
                 JOptionPane.showMessageDialog(null, "Usuário criado com sucesso");
+                System.out.println(genero1 + genero2);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário Não Criado", "Erro", JOptionPane.WARNING_MESSAGE);
             }

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import persistence.BancoDados;
 
-
 public class AvaliacaoDAO {
 
     //Insere uma avaliação, os dados obrigatórios são passados por parâmetro
@@ -39,6 +38,4 @@ public class AvaliacaoDAO {
 
         return resultado;
     }
-
 }
-

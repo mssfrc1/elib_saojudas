@@ -13,14 +13,16 @@ public class UsuarioDAO {
     private static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuario";
     private static final String LOGIN = "SELECT * FROM usuario WHERE usuario = ? AND senha = ?";
     private static final String INSERT_USUARIO = "INSERT INTO usuario(nome,sobrenome,usuario,senha,admin,idade,sexo) VALUES (?,?,?,?,?,?,?)";
+    private static final String GET_LAST_USUARIO_ID = "SELECT id FROM usuario ORDER BY id DESC LIMIT 1";
 
-    //Retorna uma lista com todos os usuarios, os dados passam pelo Model e são acessados através do objeto usuarios
+    // Retorna uma lista com todos os usuarios, os dados passam pelo Model e são
+    // acessados através do objeto usuarios
     public static List<User> getAllUsuarios() {
         List<User> usuarios = new ArrayList();
 
         try (Connection connection = BancoDados.ConexaoDb();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USUARIOS);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USUARIOS);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 User usuario = new User();
@@ -42,12 +44,12 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    //Cria um usuario, as informações obrigatórias são passadas por parâmetro
-    public static int criarUsuario(User usuario){
+    // Cria um usuario, as informações obrigatórias são passadas por parâmetro
+    public static int criarUsuario(User usuario) {
         int resultado = 0;
 
         try (Connection connection = BancoDados.ConexaoDb();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USUARIO)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USUARIO)) {
 
             preparedStatement.setString(1, usuario.getNome());
             preparedStatement.setString(2, usuario.getSobrenome());
@@ -70,7 +72,7 @@ public class UsuarioDAO {
         User usuarioUser = null;
 
         try (Connection connection = BancoDados.ConexaoDb();
-             PreparedStatement preparedStatement = connection.prepareStatement(LOGIN)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(LOGIN)) {
 
             preparedStatement.setString(1, usuario);
             preparedStatement.setString(2, senha);
@@ -95,5 +97,23 @@ public class UsuarioDAO {
         }
 
         return usuarioUser;
+    }
+
+    public static int getLastUsuarioId() {
+        int lastUsuarioId = -1;
+
+        try (Connection connection = BancoDados.ConexaoDb();
+                PreparedStatement preparedStatement = connection.prepareStatement(GET_LAST_USUARIO_ID);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                lastUsuarioId = resultSet.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lastUsuarioId;
     }
 }

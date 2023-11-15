@@ -80,7 +80,7 @@ public class LivroDAO {
     }
 
     public static int getLastLivroId() {
-    int lastLivroId = -1; // Default value in case no result is found
+    int lastLivroId = -1;
 
     try (Connection connection = BancoDados.ConexaoDb();
          PreparedStatement preparedStatement = connection.prepareStatement(GET_LAST_LIVRO_ID);
