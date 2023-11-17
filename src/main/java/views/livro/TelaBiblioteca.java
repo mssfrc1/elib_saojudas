@@ -7,6 +7,7 @@ import models.User;
 import views.avaliacao.TelaAvaliacao;
 import views.usuario.TelaCadastroClient;
 import views.usuario.TelaEditClient;
+import views.usuario.TelaUsuario;
 
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     }
 
     public static void RenderizaLivros() {
+        
         var livros = getLivros();
 
         // Crie um JPanel com GridLayout para alinhar os livros em 3 colunas
@@ -122,11 +124,13 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jLabel1 = new javax.swing.JLabel();
+        btn_usuario = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btn_refresh = new javax.swing.JButton();
         menu = new javax.swing.JMenuBar();
         itemBiblioteca = new javax.swing.JMenu();
         menuLivro_Pesquisar = new javax.swing.JMenuItem();
@@ -137,14 +141,6 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
 
-        if (usuarioLogado.getAdmin() == false) {
-            itemClientes.setVisible(false);
-        }
-
-        jLabel1.setVisible(false);
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel1.setVerticalAlignment(SwingConstants.CENTER);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -152,8 +148,24 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        jLabel1.setText("jLabel1");
+        btn_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/media/images/usuario.jpg"))); // NOI18N
+        btn_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_usuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Seja Bem Vindo (a), " + usuarioLogado.getNome());
+        jLabel2.setToolTipText("");
+
+        btn_refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/media/images/refresh.jpg"))); // NOI18N
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refreshActionPerformed(evt);
+            }
+        });
 
         itemBiblioteca.setText("Biblioteca");
         itemBiblioteca.addActionListener(new java.awt.event.ActionListener() {
@@ -222,34 +234,55 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
-                                .addContainerGap())
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_usuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 3, Short.MAX_VALUE)
+                        .addComponent(btn_usuario))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btn_refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuarioActionPerformed
+        var TelaUsuario = new TelaUsuario();
+        TelaUsuario.setVisible(true);
+    }//GEN-LAST:event_btn_usuarioActionPerformed
+
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
+        // TODO add your handling code here:
+        // Metodo Redenrizar livros novamente
+        RenderizaLivros();       
+        JOptionPane.showMessageDialog(null, "Atualizado") ;
+    }//GEN-LAST:event_btn_refreshActionPerformed
 
     protected void menuCliente_CadastroPropertyChange(PropertyChangeEvent evt) {
     }
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowOpened
         RenderizaLivros();
-        jLabel1.setText("Seja Bem-Vindo(a),  " + usuarioLogado.getNome());
-        jLabel1.setVisible(true);
     }// GEN-LAST:event_formWindowOpened
 
     private void menuLivro_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuLivro_PesquisarActionPerformed
@@ -334,10 +367,12 @@ public class TelaBiblioteca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_refresh;
+    private javax.swing.JButton btn_usuario;
     private javax.swing.JMenu itemAvaliacao;
     private javax.swing.JMenu itemBiblioteca;
     private javax.swing.JMenu itemClientes;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private static javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem menuAvalia_Fazer;
