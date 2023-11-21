@@ -42,10 +42,10 @@ public class TelaEditClient extends javax.swing.JFrame {
 
         label_pesqCliente = new javax.swing.JLabel();
         label_buscaNome = new javax.swing.JLabel();
-        txt_buscarNome = new javax.swing.JTextField();
         btn_pesquisarID = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tab_info = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
         menu = new javax.swing.JMenuBar();
         itemBiblioteca = new javax.swing.JMenu();
         menuLivro_ver = new javax.swing.JMenuItem();
@@ -56,16 +56,18 @@ public class TelaEditClient extends javax.swing.JFrame {
         menuCliente_Cadastro = new javax.swing.JMenuItem();
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
-        if(usuarioLogado.getAdmin() == false){
-            itemClientes.setVisible(false);
-        }
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
+
+        var nomeUsuarios = UserController.filterByName();
+        for (int i = 0; i < nomeUsuarios.size(); i++) {
+            jComboBox1.addItem(nomeUsuarios.get(i));
+        }
 
         label_pesqCliente.setText("Pesquisar nome do Cliente:");
 
@@ -158,16 +160,14 @@ public class TelaEditClient extends javax.swing.JFrame {
         });
         itemClientes.add(menuCliente_Pesquisar);
 
-        
-            menuCliente_Cadastro.setText("Cadastrar Cliente");
-            menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    menuCliente_CadastroActionPerformed(evt);
-                }
-            });
-            itemClientes.add(menuCliente_Cadastro);
-        
-        
+        menuCliente_Cadastro.setText("Cadastrar Cliente");
+        menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCliente_CadastroActionPerformed(evt);
+            }
+        });
+        itemClientes.add(menuCliente_Cadastro);
+
         menu.add(itemClientes);
 
         itemAvaliacao.setText("Avaliações");
@@ -191,16 +191,16 @@ public class TelaEditClient extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(label_pesqCliente)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label_buscaNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_buscarNome, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_pesquisarID, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -212,8 +212,8 @@ public class TelaEditClient extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_buscaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_buscarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_pesquisarID))
+                    .addComponent(btn_pesquisarID)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -223,15 +223,21 @@ public class TelaEditClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pesquisarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarIDActionPerformed
-        String pegarNome = txt_buscarNome.getText();
-                 
-        DefaultTableModel tb = (DefaultTableModel)tab_info.getModel();
+        String pegarNome = jComboBox1.getSelectedItem().toString();
+
+        try {
+            var usuario = UserController.getUsuarioByNome(pegarNome);
+
+            DefaultTableModel tb = (DefaultTableModel)tab_info.getModel();
         tb.addRow(
             new Object[]{
-                78, "null", "null", "null", null, 48, "null", "null",
+                usuario.getId(), usuario.getNome(), usuario.getSobrenome(), usuario.getUsuario(), usuario.getSenha(), usuario.getIdade(), usuario.getSexo(), "null",
         });
 
         tab_info.validate();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         
     }//GEN-LAST:event_btn_pesquisarIDActionPerformed
 
@@ -319,6 +325,7 @@ public class TelaEditClient extends javax.swing.JFrame {
     private javax.swing.JMenu itemAvaliacao;
     private javax.swing.JMenu itemBiblioteca;
     private javax.swing.JMenu itemClientes;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label_buscaNome;
     private javax.swing.JLabel label_pesqCliente;
@@ -330,6 +337,5 @@ public class TelaEditClient extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuLivro_Pesquisar;
     private javax.swing.JMenuItem menuLivro_ver;
     private javax.swing.JTable tab_info;
-    private javax.swing.JTextField txt_buscarNome;
     // End of variables declaration//GEN-END:variables
 }
