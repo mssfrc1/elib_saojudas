@@ -2,9 +2,7 @@ package controllers;
 
 import java.util.List;
 
-import DAO.LivroDAO;
 import DAO.UsuarioDAO;
-import models.Livro;
 import models.User;
 
 public class UserController {
