@@ -27,7 +27,8 @@ public class LivroDAO {
             "FROM livro AS liv " +
             "JOIN genero AS gen ON gen.id = liv.id_genero " +
             "JOIN avaliacao AS ava ON ava.id_livro = liv.id " +
-            "GROUP BY liv.id, liv.nome, gen.nome_genero;";
+            "GROUP BY liv.id, liv.nome, gen.nome_genero " +
+            "ORDER BY media_avaliacao DESC;";
 
     private static final String GET_LAST_LIVRO_ID = "SELECT id FROM livro ORDER BY id DESC LIMIT 1";
     private static final String GET_LIVRO_BY_NAME = "SELECT " +
