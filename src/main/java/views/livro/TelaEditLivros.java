@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views.livro;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
+import controllers.LivroController;
 import controllers.UserController;
 import models.User;
 import views.avaliacao.TelaAvaliacao;
@@ -46,10 +41,10 @@ public class TelaEditLivros extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         label_pesqLivro = new javax.swing.JLabel();
         label_buscaNome = new javax.swing.JLabel();
-        txt_buscarNome = new javax.swing.JTextField();
         btn_pesquisarNome = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tab_info2 = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
         menu = new javax.swing.JMenuBar();
         itemBiblioteca = new javax.swing.JMenu();
         menuLivro_ver = new javax.swing.JMenuItem();
@@ -60,8 +55,10 @@ public class TelaEditLivros extends javax.swing.JFrame {
         menuCliente_Cadastro = new javax.swing.JMenuItem();
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
-        if(usuarioLogado.getAdmin() == false){
-            itemClientes.setVisible(false);
+
+        var nomeLivros = LivroController.filterByName();
+        for (int i = 0; i < nomeLivros.size(); i++) {
+            jComboBox1.addItem(nomeLivros.get(i));
         }
 
         tab_info.setModel(new javax.swing.table.DefaultTableModel(
@@ -113,13 +110,13 @@ public class TelaEditLivros extends javax.swing.JFrame {
         };
         tab_info2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Sinopse", "Gênero", "Capa", "Arquivo do Livro"
+                "ID", "Nome", "Sinopse", "Gênero"
             }
         ));
         tab_info2.setFocusable(false);
@@ -172,16 +169,14 @@ public class TelaEditLivros extends javax.swing.JFrame {
         });
         itemClientes.add(menuCliente_Pesquisar);
 
-        
-            menuCliente_Cadastro.setText("Cadastrar Cliente");
-            menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    menuCliente_CadastroActionPerformed(evt);
-                }
-            });
-            itemClientes.add(menuCliente_Cadastro);
-        
-        
+        menuCliente_Cadastro.setText("Cadastrar Cliente");
+        menuCliente_Cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCliente_CadastroActionPerformed(evt);
+            }
+        });
+        itemClientes.add(menuCliente_Cadastro);
+
         menu.add(itemClientes);
 
         itemAvaliacao.setText("Avaliações");
@@ -209,27 +204,25 @@ public class TelaEditLivros extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(label_pesqLivro))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(label_buscaNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_buscarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_pesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btn_pesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(label_pesqLivro))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(24, 24, 24)
                 .addComponent(label_pesqLivro)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_buscarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_pesquisarNome)
-                    .addComponent(label_buscaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label_buscaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -239,15 +232,18 @@ public class TelaEditLivros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pesquisarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisarNomeActionPerformed
-        String pegarNome = txt_buscarNome.getText();
-                 
-        DefaultTableModel tb = (DefaultTableModel)tab_info2.getModel();
-        tb.addRow(
-            new Object[]{
-                78, "null", "null", 4, "null", "48"
-        });
+        String pegarNome = jComboBox1.getSelectedItem().toString();
+        
+        try {
+            var livro = LivroController.getLivroByNome(pegarNome);
 
-        tab_info2.validate();
+            DefaultTableModel tb = (DefaultTableModel)tab_info2.getModel();
+            tb.addRow(new Object[]{livro.getId(), livro.getNome(), livro.getSinopse(), livro.getGenero()});
+            tab_info2.validate();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
     }//GEN-LAST:event_btn_pesquisarNomeActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -333,6 +329,7 @@ public class TelaEditLivros extends javax.swing.JFrame {
     private javax.swing.JMenu itemAvaliacao;
     private javax.swing.JMenu itemBiblioteca;
     private javax.swing.JMenu itemClientes;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -347,6 +344,5 @@ public class TelaEditLivros extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuLivro_ver;
     private javax.swing.JTable tab_info;
     private javax.swing.JTable tab_info2;
-    private javax.swing.JTextField txt_buscarNome;
     // End of variables declaration//GEN-END:variables
 }

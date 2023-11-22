@@ -357,9 +357,15 @@ public class TelaAvaliacao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private int getId(String nomeLivro) {
+        return LivroController.getLivroByNome(nomeLivro).getId();
+    }
+
     private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
+        String livroSelecionado = jComboBox1.getSelectedItem().toString();
+
         try {
-            var avaliacao = AvaliacaoController.insertAvaliacao(usuarioLogado.getId(),jComboBox1.getSelectedIndex()+1,jSlider1.getValue());
+            var avaliacao = AvaliacaoController.insertAvaliacao(usuarioLogado.getId(),getId(livroSelecionado),jSlider1.getValue());
             if (avaliacao == 1) {
                 JOptionPane.showMessageDialog(null, "Avaliação feita com sucesso","Avalição",JOptionPane.YES_OPTION);
             } else {

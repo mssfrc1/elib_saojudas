@@ -60,13 +60,12 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         var livros = getLivros();
 
         // Crie um JPanel com GridLayout para alinhar os livros em 3 colunas
-        JPanel jPanel1 = new JPanel(new GridLayout(0, 3)); // 0 significa que o número de linhas é determinado
-                                                           // automaticamente
+        JPanel jPanel1 = new JPanel(new GridLayout(0, 3)); // 0 significa que o número de linhas é determinado automaticamente
 
         // Calcule o tamanho máximo para a imagem
-        Dimension frameSize = jScrollPane1.getSize(); // Obtém o tamanho do JScrollPane (assumindo que seja igual ao
-                                                      // tamanho do JFrame)
+        Dimension frameSize = jScrollPane1.getSize(); // Obtém o tamanho do JScrollPane (assumindo que seja igual ao tamanho do JFrame)
         int maxImageWidth = (int) (frameSize.getWidth() * 0.2); // 20% do tamanho do JFrame
+        int maxImageHeight = (int) (frameSize.getHeight() * 0.4); // 40% do tamanho do JFrame
 
         for (Livro livro : livros) {
             // Crie um JPanel para cada livro com BoxLayout e alinhamento central
@@ -83,7 +82,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
                 icon = new ImageIcon("src/main/java/views/media/images/capaBranca.jpeg");
             }
             // Redimensione a imagem para o tamanho máximo
-            Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, -1, Image.SCALE_SMOOTH);
+            Image scaledImage = icon.getImage().getScaledInstance(maxImageWidth, maxImageHeight, Image.SCALE_SMOOTH);
             icon = new ImageIcon(scaledImage);
 
             // Crie um JLabel com o ícone de imagem redimensionado e espaçamento entre a
@@ -96,6 +95,9 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             JLabel tituloLabel = new JLabel(livro.getNome());
             tituloLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
 
+            JLabel mediaLabel = new JLabel("Média: " + livro.getMedia());
+            mediaLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centralize horizontalmente
+
             livroPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -106,6 +108,7 @@ public class TelaBiblioteca extends javax.swing.JFrame {
             // Adicione os componentes ao JPanel do livro
             livroPanel.add(labelComIcon);
             livroPanel.add(tituloLabel);
+            livroPanel.add(mediaLabel);
 
             // Adicione o JPanel do livro ao JPanel principal
             jPanel1.add(livroPanel);
@@ -140,6 +143,10 @@ public class TelaBiblioteca extends javax.swing.JFrame {
         menuCliente_Cadastro = new javax.swing.JMenuItem();
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
+
+        if (usuarioLogado.getAdmin() != true) {
+            itemClientes.setVisible(false);
+        }
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {

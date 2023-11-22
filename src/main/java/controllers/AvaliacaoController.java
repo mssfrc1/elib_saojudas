@@ -1,5 +1,4 @@
 package controllers;
-import java.util.List;
 
 import DAO.AvaliacaoDAO;
 import models.Avaliacao;

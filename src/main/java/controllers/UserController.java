@@ -1,17 +1,17 @@
 package controllers;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 import DAO.UsuarioDAO;
 import models.User;
-import persistence.BancoDados;
 
 public class UserController {
     
     public static User usuarioLogado;
+
+    public static List<User> getAllUsuarios() {
+        return UsuarioDAO.getAllUsuarios();
+    }
 
     public static User login(String usuario, String senha) {
         var user = UsuarioDAO.Login(usuario, senha);
@@ -22,10 +22,23 @@ public class UserController {
     }
 
     public static int criarUsuario(User usuario) {
-        return UsuarioDAO.criarUsuario(new User(usuario.getNome(),usuario.getSobrenome(),usuario.getUsuario(),usuario.getSenha(),usuario.getIdade(),usuario.getSexo()));
+        if (usuario.getSexo() != null) {
+            return UsuarioDAO.criarUsuario(new User(usuario.getNome(),usuario.getSobrenome(),usuario.getUsuario(),usuario.getSenha(),usuario.getIdade(),usuario.getSexo()));
+        }
+        return 0;
     }
 
     public static int getLastUsuarioId() {
        return UsuarioDAO.getLastUsuarioId();
+    }
+
+    public static List<String> filterByName() {
+        return getAllUsuarios().stream()
+            .map(n -> n.getNome())
+            .toList();
+    }
+
+    public static User getUsuarioByNome(String nomeUsuario) {
+        return UsuarioDAO.getLivroByNome(nomeUsuario);
     }
 }

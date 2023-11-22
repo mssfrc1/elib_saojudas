@@ -24,4 +24,8 @@ public class LivroController {
         .map(n -> n.getNome())
         .toList();
     }
+
+    public static Livro getLivroByNome(String nomeLivro) {
+        return LivroDAO.getLivroByNome(nomeLivro);
+    }
 }

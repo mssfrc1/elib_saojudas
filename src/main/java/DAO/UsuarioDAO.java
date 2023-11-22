@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import models.User;
 import persistence.BancoDados;
 
 public class UsuarioDAO {
     private static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuario";
+    private static final String SELECT_USUARIO_BY_NAME = "SELECT * FROM usuario WHERE NOME = ?";
     private static final String LOGIN = "SELECT * FROM usuario WHERE usuario = ? AND senha = ?";
     private static final String INSERT_USUARIO = "INSERT INTO usuario(nome,sobrenome,usuario,senha,admin,idade,sexo) VALUES (?,?,?,?,?,?,?)";
     private static final String GET_LAST_USUARIO_ID = "SELECT id FROM usuario ORDER BY id DESC LIMIT 1";
@@ -115,5 +117,32 @@ public class UsuarioDAO {
         }
 
         return lastUsuarioId;
+    }
+
+    public static User getLivroByNome(String nomeLivro) {
+        User user = null;
+    
+        try (Connection connection = BancoDados.ConexaoDb();
+                PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USUARIO_BY_NAME)) {
+            preparedStatement.setString(1, nomeLivro);
+    
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    user = new User();
+                    user.setId(resultSet.getInt("id"));
+                    user.setNome(resultSet.getString("nome"));
+                    user.setSobrenome(resultSet.getString("sobrenome"));
+                    user.setUsuario(resultSet.getString("usuario"));
+                    user.setSenha(resultSet.getString("senha"));
+                    user.setIdade(resultSet.getInt("idade"));
+                    user.setSexo(resultSet.getString("sexo"));
+                    
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return user;
     }
 }

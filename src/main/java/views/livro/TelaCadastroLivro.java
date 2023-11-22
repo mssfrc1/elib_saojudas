@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views.livro;
 
 import javax.swing.JOptionPane;
@@ -51,7 +47,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         comboBox_nota = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         label_nomeLivro.setText("Nome: ");
 

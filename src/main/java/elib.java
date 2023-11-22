@@ -27,5 +27,6 @@ public class elib {
         //System.out.println(AvaliacaoDAO.insertAvaliacaoByUsuarioId(1,3,7));
         //TelaBiblioteca.RenderizaLivros();
         //System.out.println(UsuarioDAO.Login("admin", "admin"));
+       // System.out.println(LivroController.getLivroByName("Duna"));
     }
 }
