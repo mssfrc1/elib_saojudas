@@ -47,7 +47,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         comboBox_nota = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         label_nomeLivro.setText("Nome: ");
 
@@ -75,7 +75,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
         jLabel1.setText("Autor: ");
 
-        comboBox_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Técnico", "Ação", "Romance", "Infantil", "Ficção" }));
+        comboBox_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tecnico", "Ficção Cientifica", "Romance", " " }));
 
         jLabel2.setText("Nota:");
 

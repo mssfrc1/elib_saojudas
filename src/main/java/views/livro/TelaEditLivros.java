@@ -56,6 +56,11 @@ public class TelaEditLivros extends javax.swing.JFrame {
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
 
+        if (usuarioLogado.getAdmin() != true) {
+            itemClientes.setVisible(false);
+        }
+
+
         var nomeLivros = LivroController.filterByName();
         for (int i = 0; i < nomeLivros.size(); i++) {
             jComboBox1.addItem(nomeLivros.get(i));

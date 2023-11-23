@@ -16,6 +16,7 @@ public class UsuarioDAO {
     private static final String LOGIN = "SELECT * FROM usuario WHERE usuario = ? AND senha = ?";
     private static final String INSERT_USUARIO = "INSERT INTO usuario(nome,sobrenome,usuario,senha,admin,idade,sexo) VALUES (?,?,?,?,?,?,?)";
     private static final String GET_LAST_USUARIO_ID = "SELECT id FROM usuario ORDER BY id DESC LIMIT 1";
+    private static final String UPDATE_USUARIO = "UPDATE INTO usuario SET nome = ? , sobrenome = ? , usuario = ? , senha = ? , idade = ? , sexo = ? WHERE id = ?";
 
     // Retorna uma lista com todos os usuarios, os dados passam pelo Model e são
     // acessados através do objeto usuarios

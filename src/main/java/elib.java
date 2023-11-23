@@ -28,5 +28,6 @@ public class elib {
         //TelaBiblioteca.RenderizaLivros();
         //System.out.println(UsuarioDAO.Login("admin", "admin"));
        // System.out.println(LivroController.getLivroByName("Duna"));
+       //System.out.println(LivroController.insertNewLivro("null", "null", 0, "null"));
     }
 }
