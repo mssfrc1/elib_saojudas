@@ -74,6 +74,11 @@ public class TelaAvaliacao extends javax.swing.JFrame {
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
 
+        if (usuarioLogado.getAdmin() != true) {
+            itemClientes.setVisible(false);
+        }
+
+
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

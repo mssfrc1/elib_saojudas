@@ -197,3 +197,5 @@ VALUES (
 		(1, 8, '2023-10-01', 2),
 		(1, 9, '2023-10-01', 1),
 		(1, 10, '2023-10-01', 0);
+
+ALTER SEQUENCE livro_pkey RESTART WITH 11;
