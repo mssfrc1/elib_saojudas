@@ -18,12 +18,14 @@ public class elib {
         //var teste = UserController.login("admin", "admin");
         //System.out.println(UsuarioDAO.Login("admin","admin").get(0));
         //System.out.println(teste);
-        // getAdmin("admin");         
+        // getAdmin("admin");
         // criarUsuario(new User("Rodrig","Bossii","rbossini","teste"));
         //System.out.println(LivroController.getAllLivros().get(5).getNome());
-        //System.out.println();
+        //System.out.println(UserController.getAllUsuarios());
+        //System.out.println(UsuarioDAO.getUsuariosFavoritos(1));
         //System.out.println(LivroDAO.getGeneroByLivroId(1));
         TelaLogin.main(null);
+        //System.out.println(UsuarioDAO.getUsuariosFavoritos(3));
         //System.out.println(AvaliacaoDAO.insertAvaliacaoByUsuarioId(1,3,7));
         //TelaBiblioteca.RenderizaLivros();
         //System.out.println(UsuarioDAO.Login("admin", "admin"));

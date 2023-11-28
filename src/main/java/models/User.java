@@ -6,6 +6,7 @@ public class User {
     private String sobrenome;
     private String usuario;
     private String senha;
+    private String generoFav;
     private int idade;
     private String sexo;
     private boolean admin;
@@ -95,4 +96,12 @@ public class User {
                 + ", " + "Senha " + senha + ", " + "Admin: " + admin;
     }
 
+    public String getGeneroFav() {
+        return generoFav;
+    }
+
+    public void setGeneroFav(String generoFav) {
+        this.generoFav = generoFav;
+    }
+    
 }

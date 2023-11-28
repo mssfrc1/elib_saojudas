@@ -39,6 +39,6 @@ public class UserController {
     }
 
     public static User getUsuarioByNome(String nomeUsuario) {
-        return UsuarioDAO.getLivroByNome(nomeUsuario);
+        return UsuarioDAO.getUsuarioByNome(nomeUsuario);
     }
 }
