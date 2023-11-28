@@ -4,6 +4,7 @@
 **/nbproject/Package-*.bash
 build/
 nbbuild/
+target/
 dist/
 nbdist/
 .nb-gradle/
