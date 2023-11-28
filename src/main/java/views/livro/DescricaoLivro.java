@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -84,7 +85,9 @@ public class DescricaoLivro extends JFrame {
                     ex.printStackTrace();
                 } catch (URISyntaxException e1) {
                     e1.printStackTrace();
-                }
+                } catch (NullPointerException e2) {
+                    JOptionPane.showMessageDialog(null, "Livro sem PDF, no futuro usuário terão acesso guardar PDF dos livros");
+                } 
             }
         });
         gbc.gridx = 0;

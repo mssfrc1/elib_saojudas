@@ -1,9 +1,5 @@
 package DAO;
 
-<<<<<<< HEAD
-public class FavoritoDAO {
-    
-=======
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -34,5 +30,4 @@ public class FavoritoDAO {
 
         return resultado;
     }
->>>>>>> origin/teste
 }

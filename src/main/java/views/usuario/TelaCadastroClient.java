@@ -6,11 +6,7 @@ package views.usuario;
 
 import javax.swing.JOptionPane;
 
-import org.postgresql.util.PSQLException;
-
 import DAO.FavoritoDAO;
-import DAO.UsuarioDAO;
-import controllers.AvaliacaoController;
 import controllers.UserController;
 import models.User;
 import views.livro.TelaBiblioteca;
@@ -222,8 +218,9 @@ public class TelaCadastroClient extends javax.swing.JFrame {
         int genero2 = box_tipoLivro2.getSelectedIndex() + 1;
 
         try {
-            var criarUsuario = UserController.criarUsuario(new User(nome, sobrenome, usuario, senha, idade, sexo));
-            if (criarUsuario == 1 && verificarGenero(genero1, genero2)) {
+            
+            if (verificarGenero(genero1, genero2)) {
+                UserController.criarUsuario(new User(nome, sobrenome, usuario, senha, idade, sexo));
                 FavoritoDAO.insertAvaliacao(UserController.getLastUsuarioId(), genero1);
                 FavoritoDAO.insertAvaliacao(UserController.getLastUsuarioId(), genero2);
                 JOptionPane.showMessageDialog(null, "Usuário criado com sucesso");

@@ -4,10 +4,6 @@ import controllers.UserController;
 import views.livro.TelaBiblioteca;
 
 import java.awt.event.KeyEvent;
-<<<<<<< HEAD:src/main/java/views/TelaLogin.java
-import java.util.Properties;
-=======
->>>>>>> origin/teste:src/main/java/views/usuario/TelaLogin.java
 
 import javax.swing.JOptionPane;
 
@@ -16,25 +12,19 @@ import javax.swing.JOptionPane;
  * @author guilh
  */
 public class TelaLogin extends javax.swing.JFrame {
-    public static final String DIR_PAI_IMAGEM = "/Users/macbookpro/Desktop";
 
     /** Creates new form TelaLogin */
     public TelaLogin() {
         initComponents();
         setLocationRelativeTo(null);
     }
-       
+    
     public String getUsuario() {
         return jTextField1.getText();
     }
     
     public String getPassword() {
-<<<<<<< HEAD:src/main/java/views/TelaLogin.java
-        String pegarSenha = String.valueOf(jPasswordField1.getPassword());
-        return pegarSenha;
-=======
        return String.valueOf(jPasswordField1.getPassword());
->>>>>>> origin/teste:src/main/java/views/usuario/TelaLogin.java
     }
 
     /** This method is called from within the constructor to

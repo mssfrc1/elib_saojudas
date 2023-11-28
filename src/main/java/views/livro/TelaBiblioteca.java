@@ -11,24 +11,20 @@ import views.usuario.TelaUsuario;
 
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
-import java.io.IOException;
 import java.net.*;
-import java.nio.file.FileAlreadyExistsException;
 
 /**
  *
  * @author USER
  */
 public class TelaBiblioteca extends javax.swing.JFrame {
-
-    static String DIR_PAI_IMAGEM = "teste";
+    
     private User usuarioLogado = UserController.usuarioLogado;
 
     /**

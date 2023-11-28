@@ -6,38 +6,15 @@ public class User {
     private String sobrenome;
     private String usuario;
     private String senha;
-<<<<<<< HEAD
-=======
     private String generoFav;
->>>>>>> origin/teste
     private int idade;
     private String sexo;
     private boolean admin;
 
-<<<<<<< HEAD
-    public User () {}
-
-    public User(int id, String nome, String sobrenome, String usuario, String senha, int idade, String sexo, boolean admin) {
-        this.id = id;
-=======
     public User() {
     }
 
     public User(String nome, String sobrenome, String usuario, String senha, int idade, String sexo) {
->>>>>>> origin/teste
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.idade = idade;
-        this.sexo = sexo;
-<<<<<<< HEAD
-        this.admin = admin;
-=======
->>>>>>> origin/teste
-    }
-
-    public User(String nome, String sobrenome, String usuario, String senha, int idade, String sexo) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.usuario = usuario;
@@ -45,8 +22,6 @@ public class User {
         this.idade = idade;
         this.sexo = sexo;
     }
-
-
 
     public int getId() {
         return id;
@@ -121,8 +96,6 @@ public class User {
                 + ", " + "Senha " + senha + ", " + "Admin: " + admin;
     }
 
-<<<<<<< HEAD
-=======
     public String getGeneroFav() {
         return generoFav;
     }
@@ -131,5 +104,4 @@ public class User {
         this.generoFav = generoFav;
     }
     
->>>>>>> origin/teste
 }

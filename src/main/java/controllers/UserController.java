@@ -1,27 +1,11 @@
 package controllers;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 
->>>>>>> origin/teste
 import DAO.UsuarioDAO;
 import models.User;
 
 public class UserController {
-<<<<<<< HEAD
-
-    public static boolean login(String usuario, String senha) {
-        return UsuarioDAO.Login(usuario, senha) != null ? true : false; 
-    }
-
-    public static int criarUsuario(User user) {
-        return UsuarioDAO.criarUsuario(user);
-    }
-
-    public static boolean verificacaoUsuarioAdmin(String usuario) {
-        return UsuarioDAO.verificacaoUsuarioAdmin(usuario) == true ? true : false; 
-=======
     
     public static User usuarioLogado;
 
@@ -46,7 +30,6 @@ public class UserController {
 
     public static int getLastUsuarioId() {
        return UsuarioDAO.getLastUsuarioId();
->>>>>>> origin/teste
     }
 
     public static List<String> filterByName() {
