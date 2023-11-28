@@ -75,7 +75,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
         jLabel1.setText("Autor: ");
 
-        comboBox_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tecnico", "Ficção Cientifica", "Romance", " " }));
+        comboBox_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tecnico", "Ficção Cientifica", "Romance"}));
 
         jLabel2.setText("Nota:");
 
@@ -152,35 +152,17 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
     private int verificaGenero(String genero) {
 
-        if (genero.equals("Técnico")) {
+       if (genero.equals("Tecnico")) {
             return 1;
-        } else if (genero.equals("Ação")) {
+        } else if (genero.equals("Ficção Cientifica")) {
             return 2;
         } else if (genero.equals("Romance")) {
             return 3;
-        } else if (genero.equals("Infantil")) {
-            return 4;
-        } else if (genero.equals("Ficção Cientifica")) {
-            return 5;
+        } else {
+            return 0;
         }
-        return 0;
     }
 
-    private int passarNota(String genero) {
-
-        if (genero.equals("Técnico")) {
-            return 1;
-        } else if (genero.equals("Ação")) {
-            return 2;
-        } else if (genero.equals("Romance")) {
-            return 3;
-        } else if (genero.equals("Infantil")) {
-            return 4;
-        } else if (genero.equals("Ficção Cientifica")) {
-            return 5;
-        }
-        return 0;
-    }
 
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
         dispose();
