@@ -186,6 +186,7 @@ public class TelaCadastroClient extends javax.swing.JFrame {
     private String getSexo() {
         if (jRadioButton1.isSelected() && jRadioButton2.isSelected()) {
             JOptionPane.showMessageDialog(null, "Escolha apenas um sexo");
+            return null;
         } else if (jRadioButton1.isSelected()){
             return "Masculino";
         } else if (jRadioButton2.isSelected()) {
@@ -219,7 +220,7 @@ public class TelaCadastroClient extends javax.swing.JFrame {
 
         try {
             
-            if (verificarGenero(genero1, genero2)) {
+            if (verificarGenero(genero1, genero2) && getSexo() != null) {
                 UserController.criarUsuario(new User(nome, sobrenome, usuario, senha, idade, sexo));
                 FavoritoDAO.insertAvaliacao(UserController.getLastUsuarioId(), genero1);
                 FavoritoDAO.insertAvaliacao(UserController.getLastUsuarioId(), genero2);
