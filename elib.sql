@@ -68,10 +68,6 @@ INSERT INTO
 VALUES (1, 'Tecnico'), (2, 'Ficção Cientifica'), (3, 'Romance');
 
 INSERT INTO
-    public.favorito(id_usuario,id_genero)
-VALUES (1,1), (1,2), (2,1), (2,2);
-
-INSERT INTO
     public.livro (
         id,
         nome,
@@ -197,9 +193,13 @@ VALUES (
 		(1, 4, '2023-10-01', 5),
 		(1, 5, '2023-10-01', 7),
 		(1, 6, '2023-10-01', 4),
-		(1, 7, '2023-10-01', 3),
+		(1, 7, '2023-10-01', 3),   
 		(1, 8, '2023-10-01', 2),
 		(1, 9, '2023-10-01', 1),
 		(1, 10, '2023-10-01', 0);
+
+INSERT INTO
+    public.favorito(id_usuario,id_genero)
+VALUES (1,1), (1,2), (2,1), (2,2);
 
 ALTER SEQUENCE livro_pkey RESTART WITH 11;
