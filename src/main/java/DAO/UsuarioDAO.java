@@ -7,11 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.DocFlavor.STRING;
+
 import models.User;
 import persistence.BancoDados;
 
-public class UsuarioDAO {
-    private static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuario";
+    public class UsuarioDAO { 
+    private static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuario;";
+    private static final String GET_USUARIO_FAVORITO =
+    "SELECT u.*, gen.nome_genero AS genero_favorito " +
+    "FROM usuario AS u " +
+    "JOIN favorito AS fav ON fav.id_usuario = u.id " +
+    "JOIN genero AS gen ON gen.id = fav.id_genero " + 
+    "WHERE u.id = ?";
     private static final String SELECT_USUARIO_BY_NAME = "SELECT * FROM usuario WHERE NOME = ?";
     private static final String LOGIN = "SELECT * FROM usuario WHERE usuario = ? AND senha = ?";
     private static final String INSERT_USUARIO = "INSERT INTO usuario(nome,sobrenome,usuario,senha,admin,idade,sexo) VALUES (?,?,?,?,?,?,?)";
@@ -22,6 +30,7 @@ public class UsuarioDAO {
     // acessados através do objeto usuarios
     public static List<User> getAllUsuarios() {
         List<User> usuarios = new ArrayList();
+        String genero = "";
 
         try (Connection connection = BancoDados.ConexaoDb();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USUARIOS);
@@ -37,15 +46,35 @@ public class UsuarioDAO {
                 usuario.setIdade(resultSet.getInt("idade"));
                 usuario.setSexo(resultSet.getString("sexo"));
                 usuario.setAdmin(resultSet.getBoolean("admin"));
+                usuario.setGeneroFav(getUsuariosFavoritos(resultSet.getInt("id")));
 
                 usuarios.add(usuario);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        System.out.println(genero);
         return usuarios;
     }
+
+    public static String getUsuariosFavoritos(int id) {
+        var genero = "";
+
+        try (Connection connection = BancoDados.ConexaoDb();
+                PreparedStatement preparedStatement = connection.prepareStatement(GET_USUARIO_FAVORITO)) {
+            preparedStatement.setInt(1, id);  // Corrected this line to set the integer parameter
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    genero = genero + ", " + resultSet.getString("genero_favorito");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return genero.replaceFirst(", ", "");
+    }
+
 
     // Cria um usuario, as informações obrigatórias são passadas por parâmetro
     public static int criarUsuario(User usuario) {
@@ -120,12 +149,12 @@ public class UsuarioDAO {
         return lastUsuarioId;
     }
 
-    public static User getLivroByNome(String nomeLivro) {
+    public static User getUsuarioByNome(String nomeUsuario) {
         User user = null;
     
         try (Connection connection = BancoDados.ConexaoDb();
                 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USUARIO_BY_NAME)) {
-            preparedStatement.setString(1, nomeLivro);
+            preparedStatement.setString(1, nomeUsuario);
     
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -137,6 +166,7 @@ public class UsuarioDAO {
                     user.setSenha(resultSet.getString("senha"));
                     user.setIdade(resultSet.getInt("idade"));
                     user.setSexo(resultSet.getString("sexo"));
+                    user.setGeneroFav(getUsuariosFavoritos(resultSet.getInt("id")));
                     
                 }
             }

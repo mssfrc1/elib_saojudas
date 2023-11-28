@@ -68,6 +68,10 @@ INSERT INTO
 VALUES (1, 'Tecnico'), (2, 'Ficção Cientifica'), (3, 'Romance');
 
 INSERT INTO
+    public.favorito(id_usuario,id_genero)
+VALUES (1,1), (1,2), (2,1), (2,2);
+
+INSERT INTO
     public.livro (
         id,
         nome,

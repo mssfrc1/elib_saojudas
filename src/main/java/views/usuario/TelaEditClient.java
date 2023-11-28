@@ -57,7 +57,7 @@ public class TelaEditClient extends javax.swing.JFrame {
         itemAvaliacao = new javax.swing.JMenu();
         menuAvalia_Fazer = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -93,7 +93,7 @@ public class TelaEditClient extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Sobrenome", "Usuario", "Senha", "Idade", "Sexo", "Livro Preferido"
+                "ID", "Nome", "Sobrenome", "Usuario", "Senha", "Idade", "Sexo", "Gêneros Favoritos"
             }
         ) {
             Class[] types = new Class [] {
@@ -191,17 +191,16 @@ public class TelaEditClient extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(label_pesqCliente)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(label_pesqCliente))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label_buscaNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_pesquisarID, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_pesquisarID, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 828, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -231,7 +230,7 @@ public class TelaEditClient extends javax.swing.JFrame {
             DefaultTableModel tb = (DefaultTableModel)tab_info.getModel();
         tb.addRow(
             new Object[]{
-                usuario.getId(), usuario.getNome(), usuario.getSobrenome(), usuario.getUsuario(), usuario.getSenha(), usuario.getIdade(), usuario.getSexo(), "null",
+                usuario.getId(), usuario.getNome(), usuario.getSobrenome(), usuario.getUsuario(), usuario.getSenha(), usuario.getIdade(), usuario.getSexo(), usuario.getGeneroFav()
         });
 
         tab_info.validate();
