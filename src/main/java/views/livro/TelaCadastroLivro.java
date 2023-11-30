@@ -182,6 +182,8 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
             autor != null && autor.length() != 0) {
             if (LivroController.insertNewLivro(nome, sinopse, indiceSelecionado, autor) == 1) {
                 AvaliacaoController.insertAvaliacao(usuarioLogado.getId(), LivroController.getLastLivroId(), nota);
+                JOptionPane.showMessageDialog(null, "Livro criado com sucesso !");
+                dispose();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Dados Incompletos");

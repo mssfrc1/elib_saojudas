@@ -226,9 +226,8 @@ public class TelaCadastroClient extends javax.swing.JFrame {
             if (criarUsuario == 1 && verificarGenero(genero1, genero2)) {
                 FavoritoDAO.insertAvaliacao(UserController.getLastUsuarioId(), genero1);
                 FavoritoDAO.insertAvaliacao(UserController.getLastUsuarioId(), genero2);
-                JOptionPane.showMessageDialog(null, "Usuário criado com sucesso");
+                JOptionPane.showMessageDialog(null, "Usuário criado com sucesso !");
                 dispose();
-                TelaBiblioteca.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário Não Criado", "Erro", JOptionPane.WARNING_MESSAGE);
             }
